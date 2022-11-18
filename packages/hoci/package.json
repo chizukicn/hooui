@@ -16,7 +16,9 @@
     "license": "MIT",
     "dependencies": {
         "@vueuse/core": "^9.5.0",
-        "maybe-types": "^0.0.3",
+        "maybe-types": "^0.0.3"
+    },
+    "peerDependencies": {
         "vue": "^3.2.45"
     }
 }
