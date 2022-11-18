@@ -1,7 +1,7 @@
 {
   "name": "@hookui/monorepo",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "hook ui .",
   "files": [
     "dist/*"
@@ -15,9 +15,9 @@
     "stub": "pnpm -r --parallel --filter=./packages/**  run stub",
     "lint": "eslint ./packages/ --ext .ts",
     "test": "pnpm stub && vitest",
-    "dev":"vite playground",
+    "dev": "vite playground",
     "bump": "bumpp package.json packages/*/package.json --commit --push --tag",
-    "pub":"pnpm -r publish --access public ",
+    "pub": "pnpm -r publish --access public ",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "husky install",
     "regit": "git fetch --all && git reset --hard origin/main && git pull && git remote prune origin"
