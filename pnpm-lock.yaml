@@ -32,7 +32,7 @@ importers:
       unbuild: 0.9.4
       vitest: 0.24.5
 
-  packages/hookui:
+  packages/hoci:
     specifiers:
       '@vueuse/core': ^9.5.0
       maybe-types: ^0.0.3
@@ -51,7 +51,7 @@ importers:
       compression: ^1.7.4
       dayjs: ^1.11.4
       element-plus: ^2.2.18
-      hookui: workspace:*
+      hoci: workspace:*
       jquery: ^3.6.0
       query-string: ^7.1.1
       rollup-plugin-visualizer: ^5.8.3
@@ -68,7 +68,7 @@ importers:
       axios: 0.27.2
       dayjs: 1.11.6
       element-plus: 2.2.21_vue@3.2.45
-      hookui: link:../packages/hookui
+      hoci: link:../packages/hoci
       jquery: 3.6.1
       query-string: 7.1.1
       vue: 3.2.45

@@ -17,7 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      hookui: "@fs/../../packages/hookui/src/index.ts"
+      hoci: "@fs/../../packages/hoci/src/index.ts"
     }
   },
   plugins: [

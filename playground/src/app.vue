@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, ref } from "vue";
-  import { HiItem, HiSelection, HiSwitch } from "hookui";
+  import { HiItem, HiSelection, HiSwitch } from "hoci";
 
   export default defineComponent(() => {
     const selectedIndex = ref(2);
