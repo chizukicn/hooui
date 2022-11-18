@@ -1,0 +1,22 @@
+{
+    "name": "hookui",
+    "version": "0.0.0",
+    "description": "",
+    "main": "dist/index.cjs",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "unbuild",
+        "stub": "unbuild --stub"
+    },
+    "author": "chizuki",
+    "license": "MIT",
+    "dependencies": {
+        "@vueuse/core": "^9.5.0",
+        "maybe-types": "^0.0.3",
+        "vue": "^3.2.45"
+    }
+}

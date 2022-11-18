@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "lib": ["esnext", "DOM"],
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "skipDefaultLibCheck": true,
+        "outDir": "./dist",
+        "declaration": true,
+        "jsx": "preserve",
+        "paths": {
+          "hookui":["./packages/hookui/src/index.ts"]
+        }
+    },
+    "include": [
+        "playgrounds/**/*.ts",
+        "playgrounds/**/*.tsx",
+        "packages/**/**.ts",
+        "playgrounds/vue-cli/vue.config.js"
+    ],
+    "exclude": ["node_modules", "dist"]
+}
