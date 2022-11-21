@@ -1,6 +1,6 @@
 import { syncRef } from "@vueuse/core";
 import type { PropType } from "vue";
-import { computed, defineComponent, h, provide, reactive, renderSlot, watch } from "vue";
+import { computed, defineComponent, h, provide, reactive, renderSlot } from "vue";
 import type { ActivateEvent } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
 import { defineHookComponent, defineHookEmits, defineHookProps } from "../../shared";
@@ -15,10 +15,16 @@ export const selectionListProps = defineHookProps({
   modelValue: {
     type: valuePropType
   },
+  /**
+   * 选中时的 class
+   */
   activeClass: {
     type: classPropType,
     default: ""
   },
+  /**
+   *  每个选项的 class
+   */
   itemClass: {
     type: classPropType,
     default: ""
@@ -37,6 +43,12 @@ export const selectionListProps = defineHookProps({
   multiple: {
     type: [Boolean, Number],
     default: () => false
+  },
+  /**
+   * 可清除
+   */
+  clearable: {
+    type: Boolean
   },
   defaultValue: {
     type: valuePropType
@@ -86,14 +98,11 @@ export const useSelectionList = defineHookComponent({
       },
       set(val) {
         emit("update:modelValue", val);
+        emit("change", val);
       }
     });
 
     syncRef(currentValue, modelValue, { immediate: true, deep: true });
-
-    watch(currentValue, val => {
-      emit("change", val);
-    }, { deep: true });
 
     provide(
       ActiveClassSymbol,
@@ -120,7 +129,7 @@ export const useSelectionList = defineHookComponent({
 
     function changeActive(option: any) {
       if (isActive(option)) {
-        if (props.multiple) {
+        if (props.multiple || props.clearable) {
           actives.splice(actives.indexOf(option), 1);
         }
       } else {
