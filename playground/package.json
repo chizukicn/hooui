@@ -10,7 +10,7 @@
       "element-plus": "^2.2.18",
       "jquery": "^3.6.0",
       "query-string": "^7.1.1",
-      "vue": "^3.2.37",
+      "vue": "^3.2.31",
       "vue-router": "^4.1.2"
   },
   "devDependencies": {

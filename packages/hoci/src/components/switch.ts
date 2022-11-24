@@ -31,7 +31,7 @@ export const switchProps = defineHookProps({
   }
 });
 
-const switchEmits = defineHookEmits(["update:modelValue", "change"]);
+export const switchEmits = defineHookEmits(["update:modelValue", "change"]);
 
 export const useSwitch = defineHookComponent({
   props: switchProps,

@@ -1,24 +1,31 @@
 {
-    "name": "hoci",
-    "version": "0.0.3",
-    "description": "",
-    "main": "dist/index.cjs",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist/"
-    ],
-    "scripts": {
-        "build": "unbuild",
-        "stub": "unbuild --stub"
+  "name": "hoci",
+  "version": "0.0.3",
+  "description": "",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
     },
-    "author": "chizuki",
-    "license": "MIT",
-    "dependencies": {
-        "@vueuse/core": "^9.5.0",
-        "maybe-types": "^0.0.3"
-    },
-    "peerDependencies": {
-        "vue": "^3.2.45"
-    }
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "author": "chizuki",
+  "license": "MIT",
+  "dependencies": {
+    "@vueuse/core": "^9.1.0",
+    "maybe-types": "^0.0.3"
+  },
+  "devDependencies": {
+    "vue": "^3.2.31"
+  }
 }
