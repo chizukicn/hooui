@@ -1,4 +1,4 @@
-import { syncRef } from "@vueuse/core";
+import { isDefined, syncRef } from "@vueuse/core";
 import type { PropType } from "vue";
 import { computed, defineComponent, h, provide, reactive, renderSlot } from "vue";
 import type { ActivateEvent } from "../../types";
@@ -13,14 +13,15 @@ export const selectionListProps = defineHookProps({
     default: "div"
   },
   modelValue: {
-    type: valuePropType
+    type: valuePropType,
+    default: () => null
   },
   /**
    * 选中时的 class
    */
   activeClass: {
     type: classPropType,
-    default: ""
+    default: "active"
   },
   /**
    *  每个选项的 class
@@ -51,7 +52,8 @@ export const selectionListProps = defineHookProps({
     type: Boolean
   },
   defaultValue: {
-    type: valuePropType
+    type: valuePropType,
+    default: () => null
   },
   activateEvent: {
     type: String as PropType<ActivateEvent>,
@@ -68,7 +70,7 @@ export const useSelectionList = defineHookComponent({
     const options = reactive<Option[]>([]);
 
     function toArray(value?: any | any[]): any[] {
-      if (value === undefined) {
+      if (!isDefined(value)) {
         return [];
       }
       if (props.multiple && Array.isArray(value)) {
