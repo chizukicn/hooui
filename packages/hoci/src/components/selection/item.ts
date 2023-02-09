@@ -66,7 +66,7 @@ export const useSelectionItem = defineHookComponent({
 
     const isActive = inject(IsActiveSymbol, () => false);
 
-    const changeActive = inject(ChangeActiveSymbol, () => false);
+    const changeActive = inject(ChangeActiveSymbol, () => {});
 
     const activeClass = computed(() => inject(ActiveClassSymbol)?.value ?? "active");
     const unactiveClass = computed(() => inject(UnactiveSymbol)?.value ?? "unactive");

@@ -20,7 +20,6 @@
         "playgrounds/**/*.ts",
         "playgrounds/**/*.tsx",
         "packages/**/**.ts",
-        "playgrounds/vue-cli/vue.config.js"
-, "packages/hoci/src/components/selection.tsx", "packages/hoci/src/components/selection.tsx"    ],
+     ],
     "exclude": ["node_modules", "dist"]
 }

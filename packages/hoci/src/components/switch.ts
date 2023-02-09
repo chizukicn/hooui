@@ -53,15 +53,14 @@ export const useSwitch = defineHookComponent({
       set(val) {
         checked.value = val;
         emit("update:modelValue", val);
-        emit("change", val);
       }
     });
 
     const toggle = function (value?: any) {
-      if (typeof value === "boolean") {
-        modelValue.value = value;
-      } else {
-        modelValue.value = !modelValue.value;
+      const oldValue = modelValue.value;
+      const newValue = typeof value ==="boolean" ? value : !oldValue;
+      if(newValue !== oldValue){
+        emit("change", newValue);
       }
     };
 

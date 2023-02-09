@@ -6,6 +6,7 @@ import uncomponents from "unplugin-vue-components";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import windicss from "vite-plugin-windicss";
+import path from "path"
 
 export default defineConfig({
   server: {
@@ -15,11 +16,12 @@ export default defineConfig({
       strict: false
     }
   },
-  resolve: {
-    alias: {
-      hoci: "@fs/../../packages/hoci/src/index.ts"
+  resolve:{
+    alias:{
+      hoci:path.resolve(__dirname,"../packages/hoci/src/index.ts")
     }
   },
+
   plugins: [
     vue(),
     jsx(),
@@ -29,14 +31,6 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true
     }) as Plugin,
-    {
-      name: "jiti",
-      resolveId(id: string) {
-        if (id.startsWith("file:///")) {
-          return id.slice(8);
-        }
-      }
-    } as Plugin,
     uncomponents.vite({
       resolvers: []
     })

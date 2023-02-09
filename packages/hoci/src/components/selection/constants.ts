@@ -1,4 +1,5 @@
 import type { MaybeRef } from "@vueuse/core";
+import { MaybePromise } from "maybe-types";
 import type { InjectionKey, Ref } from "vue";
 import type { ActivateEvent, ClassType, ElementLike } from "../../types";
 
@@ -19,7 +20,7 @@ export const ItemOptionsSymbol = Symbol("[hi-selection]options");
 
 export const ActivateEventSymbol: InjectionKey<Ref<ActivateEvent>> = Symbol("[hi-selection]activate-event");
 
-export const ChangeActiveSymbol: InjectionKey<(_: any) => boolean> = Symbol("[hi-selection]change-active");
+export const ChangeActiveSymbol: InjectionKey<(_: any) => MaybePromise<void>> = Symbol("[hi-selection]change-active");
 
 export const IsActiveSymbol: InjectionKey<(_: any) => boolean> = Symbol("[hi-selection]is-active");
 

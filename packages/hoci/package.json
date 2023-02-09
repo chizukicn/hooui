@@ -8,13 +8,6 @@
   "files": [
     "dist/"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs"
-    },
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub"
@@ -22,7 +15,7 @@
   "author": "chizuki",
   "license": "MIT",
   "dependencies": {
-    "@vueuse/core": "^9.1.0",
+    "@vueuse/core": "^9.12.0",
     "maybe-types": "^0.0.3"
   },
   "devDependencies": {

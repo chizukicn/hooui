@@ -1,5 +1,5 @@
-import { isDefined, syncRef } from "@vueuse/core";
-import type { PropType } from "vue";
+import { isDefined, syncRef, watchOnce } from "@vueuse/core";
+import { nextTick, PropType, watch } from "vue";
 import { computed, defineComponent, h, provide, reactive, renderSlot } from "vue";
 import type { ActivateEvent } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
@@ -86,11 +86,7 @@ export const useSelectionList = defineHookComponent({
         return props.multiple ? actives : actives[0];
       },
       set(val) {
-        if (props.multiple) {
-          actives.splice(0, actives.length, ...toArray(val));
-        } else {
-          actives.splice(0, actives.length, val);
-        }
+        actives.splice(0, actives.length, ...toArray(val));
       }
     });
 
@@ -100,7 +96,6 @@ export const useSelectionList = defineHookComponent({
       },
       set(val) {
         emit("update:modelValue", val);
-        emit("change", val);
       }
     });
 
@@ -129,7 +124,8 @@ export const useSelectionList = defineHookComponent({
       return actives.includes(value);
     }
 
-    function changeActive(option: any) {
+    async function changeActive(option: any) {
+      const stopWatch = watch(currentValue, (val) => emit("change", val), { deep: true })
       if (isActive(option)) {
         if (props.multiple || props.clearable) {
           actives.splice(actives.indexOf(option), 1);
@@ -144,6 +140,8 @@ export const useSelectionList = defineHookComponent({
           actives.splice(0, actives.length, option);
         }
       }
+      await nextTick();
+      stopWatch();
     }
 
     provide(IsActiveSymbol, isActive);
