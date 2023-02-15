@@ -1,39 +1,39 @@
 <script lang="tsx">
-import { defineComponent, reactive, ref } from "vue";
-import { HiItem, HiSelection, HiSwitch } from "hoci";
+  import { defineComponent, reactive, ref } from "vue";
+  import { HiItem, HiSelection, HiSwitch } from "hoci";
 
-export default defineComponent(() => {
-  const selectedIndex = ref(2);
-  const logs = ref<string[]>([]);
+  export default defineComponent(() => {
+    const selectedIndex = ref(2);
+    const logs = ref<string[]>([]);
 
-  const selectionState = reactive({
-    multiple: false,
-    clearable: false
-  })
+    const selectionState = reactive({
+      multiple: false,
+      clearable: false
+    });
 
-  function log(...args: any[]) {
-    logs.value.push(args.map(r => {
-      if (typeof r === "object") {
-        return JSON.stringify(r);
-      }
-      return r;
-    }).join(" "));
+    function log(...args: any[]) {
+      logs.value.push(args.map(r => {
+        if (typeof r === "object") {
+          return JSON.stringify(r);
+        }
+        return r;
+      }).join(" "));
 
-    // eslint-disable-next-line no-console
-    console.log(...args);
-  }
+      // eslint-disable-next-line no-console
+      console.log(...args);
+    }
 
-  function handleChange(index: number) {
-    log("change", JSON.stringify(index));
-    selectedIndex.value = index;
-  }
+    function handleChange(index: number) {
+      log("change", JSON.stringify(index));
+      selectedIndex.value = index;
+    }
 
-  function clearLog() {
-    logs.value.length =0;
-  }
+    function clearLog() {
+      logs.value.length = 0;
+    }
 
-  return () => {
-    return <div class="w-full p-4">
+    return () => {
+      return <div class="w-full p-4">
       <HiSelection {...selectionState} activateEvent="click" onChange={handleChange} v-model={selectedIndex.value} tag="div" itemClass="duration-300 cursor-pointer px-2 py-1" class="flex space-x-4 items-center" activeClass="text-white bg-hex-f00">
         <HiItem value={1}>Item 1</HiItem>
         <HiItem value={2}>Item 2</HiItem>
@@ -53,6 +53,6 @@ export default defineComponent(() => {
         {logs.value.map((log, index) => <div class="h-5 leading-5" key={index}>{log}</div>)}
       </div>
     </div>;
-  };
-});
+    };
+  });
 </script>

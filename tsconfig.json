@@ -19,6 +19,7 @@
     "include": [
         "playgrounds/**/*.ts",
         "playgrounds/**/*.tsx",
+        "playgrounds/**/*.vue",
         "packages/**/**.ts",
      ],
     "exclude": ["node_modules", "dist"]

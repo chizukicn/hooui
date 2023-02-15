@@ -1,5 +1,5 @@
-import { isDefined, syncRef, watchOnce } from "@vueuse/core";
-import { nextTick, PropType, watch } from "vue";
+import { isDefined, syncRef } from "@vueuse/core";
+import type { PropType } from "vue";
 import { computed, defineComponent, h, provide, reactive, renderSlot } from "vue";
 import type { ActivateEvent } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
@@ -120,28 +120,30 @@ export const useSelectionList = defineHookComponent({
 
     provide(ActivateEventSymbol, computed(() => props.activateEvent));
 
+    const emitChange = () => emit("change", currentValue.value);
+
     function isActive(value: any) {
       return actives.includes(value);
     }
 
     async function changeActive(option: any) {
-      const stopWatch = watch(currentValue, (val) => emit("change", val), { deep: true })
       if (isActive(option)) {
         if (props.multiple || props.clearable) {
           actives.splice(actives.indexOf(option), 1);
+          emitChange();
         }
       } else {
         if (props.multiple) {
           const limit = typeof props.multiple === "number" ? props.multiple : Infinity;
           if (actives.length < limit) {
             actives.push(option);
+            emitChange();
           }
         } else {
           actives.splice(0, actives.length, option);
+          emitChange();
         }
       }
-      await nextTick();
-      stopWatch();
     }
 
     provide(IsActiveSymbol, isActive);

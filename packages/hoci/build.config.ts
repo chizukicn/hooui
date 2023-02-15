@@ -1,5 +1,5 @@
+import fs from "fs";
 import { defineBuildConfig } from "unbuild";
-import fs from "fs"
 
 export default defineBuildConfig({
   entries: ["src/index"],
@@ -8,8 +8,8 @@ export default defineBuildConfig({
   declaration: true,
   failOnWarn: false,
   hooks: {
-    "rollup:done": async (options) => {
-      await fs.promises.rename("dist/index.mjs", "dist/index.esm.js")
+    "rollup:done": async () => {
+      await fs.promises.rename("dist/index.mjs", "dist/index.esm.js");
     }
   },
   rollup: {
@@ -18,7 +18,7 @@ export default defineBuildConfig({
       respectExternal: false
     },
     esbuild: {
-      target: "es2015",
+      target: "es2015"
 
     }
   }

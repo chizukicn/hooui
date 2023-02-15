@@ -1,5 +1,5 @@
 import type { MaybeRef } from "@vueuse/core";
-import { MaybePromise } from "maybe-types";
+import type { MaybePromise } from "maybe-types";
 import type { InjectionKey, Ref } from "vue";
 import type { ActivateEvent, ClassType, ElementLike } from "../../types";
 

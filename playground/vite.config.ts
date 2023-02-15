@@ -1,12 +1,12 @@
+import path from "path";
 import vue from "@vitejs/plugin-vue";
 import jsx from "@vitejs/plugin-vue-jsx";
 import visualizer from "rollup-plugin-visualizer";
-import uncomponents from "unplugin-vue-components";
+import uncomponents from "unplugin-vue-components/vite";
 
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import windicss from "vite-plugin-windicss";
-import path from "path"
 
 export default defineConfig({
   server: {
@@ -16,9 +16,9 @@ export default defineConfig({
       strict: false
     }
   },
-  resolve:{
-    alias:{
-      hoci:path.resolve(__dirname,"../packages/hoci/src/index.ts")
+  resolve: {
+    alias: {
+      hoci: path.resolve(__dirname, "../packages/hoci/src/index.ts")
     }
   },
 
@@ -31,7 +31,7 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true
     }) as Plugin,
-    uncomponents.vite({
+    uncomponents({
       resolvers: []
     })
   ]
