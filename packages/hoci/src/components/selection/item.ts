@@ -1,10 +1,28 @@
 import { resolveRef } from "@vueuse/core";
 import type { PropType } from "vue";
-import { capitalize, computed, defineComponent, h, inject, onDeactivated, renderSlot, watch } from "vue";
+import {
+  capitalize,
+  computed,
+  defineComponent,
+  h,
+  inject,
+  onDeactivated,
+  renderSlot,
+  watch
+} from "vue";
 import { defineHookComponent, defineHookProps } from "../../shared";
-import type { ElementLike } from "../../types";
+import type { ActivateEvent, ElementLike } from "../../types";
 import { valuePropType } from "../../constants";
-import { ActivateEventSymbol, ActiveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ItemLabelSymbol, UnactiveSymbol } from "./constants";
+import {
+  ActivateEventSymbol,
+  ActiveClassSymbol,
+  ChangeActiveSymbol,
+  InitSymbol,
+  IsActiveSymbol,
+  ItemClassSymbol,
+  ItemLabelSymbol,
+  UnactiveSymbol
+} from "./constants";
 
 export const selectionItemProps = defineHookProps({
   value: {
@@ -14,7 +32,9 @@ export const selectionItemProps = defineHookProps({
     }
   },
   label: {
-    type: [Function, String] as PropType<string | ((val: any) => string) | ElementLike | null>
+    type: [Function, String] as PropType<
+      string | ((val: any) => string) | ElementLike | null
+    >
   },
   keepAlive: {
     type: Boolean,
@@ -24,7 +44,7 @@ export const selectionItemProps = defineHookProps({
     type: [String, Number, Symbol] as PropType<string | number | symbol>
   },
   activateEvent: {
-    type: String as PropType<"click" | "mouseenter" | "mousedown" | "mouseup" | "dblclick" | "contextmenu">
+    type: String as PropType<ActivateEvent>
   }
 });
 
@@ -45,12 +65,12 @@ export const useSelectionItem = defineHookComponent({
       });
     }
 
-    let remove = () => { };
+    let remove = () => {};
     const init = inject(InitSymbol);
     if (init) {
       watch(
         () => props.value,
-        value => {
+        (value) => {
           remove();
           remove = init({
             id: Math.random().toString(16).slice(2),
@@ -68,11 +88,17 @@ export const useSelectionItem = defineHookComponent({
 
     const changeActive = inject(ChangeActiveSymbol, () => {});
 
-    const activeClass = computed(() => inject(ActiveClassSymbol)?.value ?? "active");
-    const unactiveClass = computed(() => inject(UnactiveSymbol)?.value ?? "unactive");
+    const activeClass = computed(
+      () => inject(ActiveClassSymbol)?.value ?? "active"
+    );
+    const unactiveClass = computed(
+      () => inject(UnactiveSymbol)?.value ?? "unactive"
+    );
 
     const itemClass = computed(() => {
-      return [inject(ItemClassSymbol)?.value ?? ""].concat(isActive(props.value) ? activeClass.value : unactiveClass.value);
+      return [inject(ItemClassSymbol)?.value ?? ""].concat(
+        isActive(props.value) ? activeClass.value : unactiveClass.value
+      );
     });
 
     const activateEvent = resolveRef(() => {
@@ -98,12 +124,19 @@ export const HiItem = defineComponent({
   name: "HiItem",
   props: selectionItemProps,
   setup(props, context) {
-    const { render, activate, itemClass, activateEvent } = useSelectionItem(props, context);
+    const { render, activate, itemClass, activateEvent } = useSelectionItem(
+      props,
+      context
+    );
 
     return () =>
-      h("div", {
-        class: itemClass.value,
-        [`on${capitalize(activateEvent.value)}`]: activate
-      }, render());
+      h(
+        "div",
+        {
+          class: itemClass.value,
+          [`on${capitalize(activateEvent.value)}`]: activate
+        },
+        render()
+      );
   }
 });

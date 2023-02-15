@@ -1,10 +1,24 @@
 import type { PropType } from "vue";
-import { capitalize, computed, defineComponent, h, ref, renderSlot, watch } from "vue";
-import { defineHookComponent, defineHookEmits, defineHookProps } from "../shared";
+import {
+  capitalize,
+  computed,
+  defineComponent,
+  h,
+  ref,
+  renderSlot,
+  watch
+} from "vue";
+import {
+  defineHookComponent,
+  defineHookEmits,
+  defineHookProps
+} from "../shared";
 import type { ActivateEvent } from "../types";
 import { classPropType } from "../constants";
+import { selectionItemProps } from "../../dist";
 
 export const switchProps = defineHookProps({
+  ...selectionItemProps,
   modelValue: {
     type: Boolean,
     default: false
@@ -28,6 +42,14 @@ export const switchProps = defineHookProps({
   tag: {
     type: String,
     default: "div"
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  disabledClass: {
+    type: classPropType,
+    default: ""
   }
 });
 
@@ -36,12 +58,12 @@ export const switchEmits = defineHookEmits(["update:modelValue", "change"]);
 export const useSwitch = defineHookComponent({
   props: switchProps,
   emits: switchEmits,
-  setup(props, { emit }) {
+  setup(props, context) {
     const checked = ref(!!props.modelValue);
 
     watch(
       () => props.modelValue,
-      val => {
+      (val) => {
         checked.value = !!val;
       }
     );
@@ -52,20 +74,28 @@ export const useSwitch = defineHookComponent({
       },
       set(val) {
         checked.value = val;
-        emit("update:modelValue", val);
+        context.emit("update:modelValue", val);
       }
     });
 
     const toggle = function (value?: any) {
+      if (props.disabled) {
+        return;
+      }
       const oldValue = modelValue.value;
       const newValue = typeof value === "boolean" ? value : !oldValue;
       if (newValue !== oldValue) {
-        emit("change", newValue);
+        context.emit("change", newValue);
+        context.emit("update:modelValue", newValue);
       }
     };
 
     const switchClass = computed(() => {
-      return [props.class, modelValue.value ? props.activeClass : props.unactiveClass];
+      return [
+        props.class,
+        modelValue.value ? props.activeClass : props.unactiveClass,
+        props.disabled ? props.disabledClass : ""
+      ];
     });
 
     return {
@@ -86,10 +116,14 @@ export const HiSwitch = defineComponent({
     const { switchClass, toggle } = useSwitch(props, context);
 
     return () => {
-      return h(props.tag, {
-        class: switchClass.value,
-        [`on${capitalize(props.activateEvent)}`]: toggle
-      }, renderSlot(slots, "default"));
+      return h(
+        props.tag,
+        {
+          class: switchClass.value,
+          [`on${capitalize(props.activateEvent)}`]: toggle
+        },
+        renderSlot(slots, "default")
+      );
     };
   }
 });
