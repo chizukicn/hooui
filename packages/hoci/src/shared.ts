@@ -32,7 +32,7 @@ export type HookComponent<
 > = (
   props: MaybeFunction<Partial<Defaults> & Omit<D, keyof Defaults>>,
   context: SetupContext<E>
-) => R & { $props: D };
+) => R;
 
 export function defineHookProps<
   P extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
@@ -65,13 +65,24 @@ export function defineHookComponent<
       isFunction(props) ? reactiveComputed(() => props()) : props,
       options.props!
     );
-    const rs = options.setup(p, context);
-    return { ...rs, $props: p } as R & { $props: D };
+    return options.setup(p, context);
   };
 }
 
+type Constructor<T> =
+  | {
+    new (...args: any[]): T & {}
+  }
+  | {
+    (): T
+  };
+
 function isFunction<F extends Function>(value: unknown): value is F {
   return typeof value === "function";
+}
+
+function isConstructor<T>(value: unknown): value is Constructor<T> {
+  return isFunction(value) && value.prototype !== undefined;
 }
 
 function withDefaults<
@@ -82,33 +93,37 @@ function withDefaults<
   if (Array.isArray(propsOptions)) {
     return props as D;
   }
-  const rs = {} as D;
+  const newProps = props as D;
   const options = propsOptions as ComponentObjectPropsOptions<D>;
   for (const key in options) {
     const k = key as keyof D;
     const opt = options[k];
+    if (newProps[k] !== undefined) {
+      continue;
+    }
     if (opt === null) {
       continue;
     }
-    if (typeof opt === "function") {
+    if (isConstructor(opt)) {
       if (isExtends(opt, Boolean)) {
-        rs[key] = false as D[typeof key];
+        newProps[key] = false as D[typeof key];
       }
       continue;
     }
     if (Array.isArray(opt)) {
       if (opt.some((e) => isExtends(e, Boolean))) {
-        rs[key] = false as D[typeof key];
+        newProps[key] = false as D[typeof key];
       }
       continue;
     }
     if (isFunction(opt.default)) {
-      rs[key] = opt.default(props) as D[typeof key];
+      newProps[key] = opt.default(props) as D[typeof key];
     } else if (opt.default !== undefined) {
-      rs[key] = opt.default as D[typeof key];
+      newProps[key] = opt.default as D[typeof key];
     }
   }
-  return { ...rs, ...props } as D;
+
+  return newProps as D;
 }
 
 export function isExtends(types: PropType<any>, value: PropType<any>): boolean {
