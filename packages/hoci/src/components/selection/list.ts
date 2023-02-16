@@ -1,11 +1,32 @@
 import { isDefined, syncRef } from "@vueuse/core";
 import type { PropType } from "vue";
-import { computed, defineComponent, h, provide, reactive, renderSlot } from "vue";
+import {
+  computed,
+  defineComponent,
+  h,
+  provide,
+  reactive,
+  renderSlot
+} from "vue";
 import type { ActivateEvent } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
-import { defineHookComponent, defineHookEmits, defineHookProps } from "../../shared";
+import {
+  defineHookComponent,
+  defineHookEmits,
+  defineHookProps,
+  normalizeClass
+} from "../../shared";
 import type { Option } from "./constants";
-import { ActivateEventSymbol, ActiveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ItemLabelSymbol, UnactiveSymbol } from "./constants";
+import {
+  ActivateEventSymbol,
+  ActiveClassSymbol,
+  ChangeActiveSymbol,
+  InitSymbol,
+  IsActiveSymbol,
+  ItemClassSymbol,
+  ItemLabelSymbol,
+  UnactiveSymbol
+} from "./constants";
 
 export const selectionListProps = defineHookProps({
   tag: {
@@ -61,7 +82,12 @@ export const selectionListProps = defineHookProps({
   }
 });
 
-export const selectionListEmits = defineHookEmits(["update:modelValue", "change", "load", "unload"]);
+export const selectionListEmits = defineHookEmits([
+  "update:modelValue",
+  "change",
+  "load",
+  "unload"
+]);
 
 export const useSelectionList = defineHookComponent({
   props: selectionListProps,
@@ -74,12 +100,14 @@ export const useSelectionList = defineHookComponent({
         return [];
       }
       if (props.multiple && Array.isArray(value)) {
-        return value.filter(v => v != null || v !== undefined);
+        return value.filter((v) => v != null || v !== undefined);
       }
       return [value];
     }
 
-    const actives: any[] = reactive<any[]>([...toArray(props.modelValue ?? props.defaultValue)]);
+    const actives: any[] = reactive<any[]>([
+      ...toArray(props.modelValue ?? props.defaultValue)
+    ]);
 
     const currentValue = computed({
       get() {
@@ -103,22 +131,28 @@ export const useSelectionList = defineHookComponent({
 
     provide(
       ActiveClassSymbol,
-      computed(() => props.activeClass)
+      computed(() => normalizeClass(props.activeClass))
     );
 
     provide(
       UnactiveSymbol,
-      computed(() => props.unactiveClass)
+      computed(() => normalizeClass(props.unactiveClass))
     );
 
     provide(
       ItemClassSymbol,
-      computed(() => props.itemClass)
+      computed(() => normalizeClass(props.itemClass))
     );
 
-    provide(ItemLabelSymbol, computed(() => props.label));
+    provide(
+      ItemLabelSymbol,
+      computed(() => props.label)
+    );
 
-    provide(ActivateEventSymbol, computed(() => props.activateEvent));
+    provide(
+      ActivateEventSymbol,
+      computed(() => props.activateEvent)
+    );
 
     const emitChange = () => emit("change", currentValue.value);
 
@@ -134,7 +168,8 @@ export const useSelectionList = defineHookComponent({
         }
       } else {
         if (props.multiple) {
-          const limit = typeof props.multiple === "number" ? props.multiple : Infinity;
+          const limit
+            = typeof props.multiple === "number" ? props.multiple : Infinity;
           if (actives.length < limit) {
             actives.push(option);
             emitChange();
@@ -152,7 +187,7 @@ export const useSelectionList = defineHookComponent({
 
     provide(InitSymbol, (option: Option) => {
       function remove() {
-        const index = options.findIndex(e => e.id === option.id);
+        const index = options.findIndex((e) => e.id === option.id);
         if (index > -1) {
           options.splice(index, 1);
           emit("unload", option);
@@ -170,7 +205,9 @@ export const useSelectionList = defineHookComponent({
     });
 
     function renderItem() {
-      const children = options.filter(e => actives.includes(e.value)).map(e => e.render());
+      const children = options
+        .filter((e) => actives.includes(e.value))
+        .map((e) => e.render());
       return props.multiple ? children : children[0];
     }
 

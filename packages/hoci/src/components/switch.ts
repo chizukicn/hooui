@@ -1,13 +1,6 @@
 import type { PropType } from "vue";
-import {
-  capitalize,
-  computed,
-  defineComponent,
-  h,
-  ref,
-  renderSlot,
-  watch
-} from "vue";
+import { capitalize, computed, defineComponent, h, renderSlot } from "vue";
+import { useVModel } from "@vueuse/core";
 import {
   defineHookComponent,
   defineHookEmits,
@@ -15,10 +8,8 @@ import {
 } from "../shared";
 import type { ActivateEvent } from "../types";
 import { classPropType } from "../constants";
-import { selectionItemProps } from "../../dist";
 
 export const switchProps = defineHookProps({
-  ...selectionItemProps,
   modelValue: {
     type: Boolean,
     default: false
@@ -59,23 +50,9 @@ export const useSwitch = defineHookComponent({
   props: switchProps,
   emits: switchEmits,
   setup(props, context) {
-    const checked = ref(!!props.modelValue);
-
-    watch(
-      () => props.modelValue,
-      (val) => {
-        checked.value = !!val;
-      }
-    );
-
-    const modelValue = computed<boolean>({
-      get() {
-        return !!(props.modelValue ?? checked.value);
-      },
-      set(val) {
-        checked.value = val;
-        context.emit("update:modelValue", val);
-      }
+    const modelValue = useVModel(props, "modelValue", context.emit, {
+      passive: true,
+      defaultValue: false
     });
 
     const toggle = function (value?: any) {
@@ -85,8 +62,8 @@ export const useSwitch = defineHookComponent({
       const oldValue = modelValue.value;
       const newValue = typeof value === "boolean" ? value : !oldValue;
       if (newValue !== oldValue) {
+        modelValue.value = newValue;
         context.emit("change", newValue);
-        context.emit("update:modelValue", newValue);
       }
     };
 

@@ -128,7 +128,6 @@ export const HiItem = defineComponent({
       props,
       context
     );
-
     return () =>
       h(
         "div",

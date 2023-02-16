@@ -36,16 +36,14 @@ importers:
     specifiers:
       '@vueuse/core': ^9.12.0
       maybe-types: ^0.0.3
-      vue: ^3.2.31
     dependencies:
-      '@vueuse/core': 9.12.0_vue@3.2.45
+      '@vueuse/core': 9.12.0
       maybe-types: 0.0.3
-    devDependencies:
-      vue: 3.2.45
 
   playground:
     specifiers:
       '@types/jquery': ^3.5.14
+      '@types/node': ^18.13.0
       '@vitejs/plugin-vue': ^4.0.0
       '@vitejs/plugin-vue-jsx': ^3.0.0
       axios: ^0.27.2
@@ -76,6 +74,7 @@ importers:
       vue-router: 4.1.6_vue@3.2.45
     devDependencies:
       '@types/jquery': 3.5.14
+      '@types/node': 18.13.0
       '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.45
       '@vitejs/plugin-vue-jsx': 3.0.0_vite@4.1.1+vue@3.2.45
       compression: 1.7.4
@@ -83,7 +82,7 @@ importers:
       sass: 1.56.1
       typescript: 4.9.3
       unplugin-vue-components: 0.23.0_vue@3.2.45
-      vite: 4.1.1_sass@1.56.1
+      vite: 4.1.1_2de4heejjm3b4szd4i37mkxz7u
       vite-plugin-inspect: 0.7.15_vite@4.1.1
       vite-plugin-windicss: 1.8.10_vite@4.1.1
       windicss: 3.5.6
@@ -1427,7 +1426,7 @@ packages:
       '@babel/core': 7.20.12
       '@babel/plugin-transform-typescript': 7.20.13_@babel+core@7.20.12
       '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.20.12
-      vite: 4.1.1_sass@1.56.1
+      vite: 4.1.1_2de4heejjm3b4szd4i37mkxz7u
       vue: 3.2.45
     transitivePeerDependencies:
       - supports-color
@@ -1440,7 +1439,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.1.1_sass@1.56.1
+      vite: 4.1.1_2de4heejjm3b4szd4i37mkxz7u
       vue: 3.2.45
     dev: true
 
@@ -1542,13 +1541,13 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vueuse/core/9.12.0_vue@3.2.45:
+  /@vueuse/core/9.12.0:
     resolution: {integrity: sha512-h/Di8Bvf6xRcvS/PvUVheiMYYz3U0tH3X25YxONSaAUBa841ayMwxkuzx/DGUMCW/wHWzD8tRy2zYmOC36r4sg==}
     dependencies:
       '@types/web-bluetooth': 0.0.16
       '@vueuse/metadata': 9.12.0
-      '@vueuse/shared': 9.12.0_vue@3.2.45
-      vue-demi: 0.13.11_vue@3.2.45
+      '@vueuse/shared': 9.12.0
+      vue-demi: 0.13.11
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -1574,10 +1573,10 @@ packages:
     resolution: {integrity: sha512-sIC8R+kWkIdpi5X2z2Gk8TRYzmczDwHRhEFfCu2P+XW2JdPoXrziqsGpDDsN7ykBx4ilwieS7JUIweVGhvZ93w==}
     dev: false
 
-  /@vueuse/shared/9.12.0_vue@3.2.45:
+  /@vueuse/shared/9.12.0:
     resolution: {integrity: sha512-TWuJLACQ0BVithVTRbex4Wf1a1VaRuSpVeyEd4vMUWl54PzlE0ciFUshKCXnlLuD0lxIaLK4Ypj3NXYzZh4+SQ==}
     dependencies:
-      vue-demi: 0.13.11_vue@3.2.45
+      vue-demi: 0.13.11
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -5307,7 +5306,7 @@ packages:
       kolorist: 1.7.0
       sirv: 2.0.2
       ufo: 1.0.1
-      vite: 4.1.1_sass@1.56.1
+      vite: 4.1.1_2de4heejjm3b4szd4i37mkxz7u
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -5321,7 +5320,7 @@ packages:
       '@windicss/plugin-utils': 1.8.10
       debug: 4.3.4
       kolorist: 1.7.0
-      vite: 4.1.1_sass@1.56.1
+      vite: 4.1.1_2de4heejjm3b4szd4i37mkxz7u
       windicss: 3.5.6
     transitivePeerDependencies:
       - supports-color
@@ -5361,7 +5360,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/4.1.1_sass@1.56.1:
+  /vite/4.1.1_2de4heejjm3b4szd4i37mkxz7u:
     resolution: {integrity: sha512-LM9WWea8vsxhr782r9ntg+bhSFS06FJgCvvB0+8hf8UWtvaiDagKYWXndjfX6kGl74keHJUcpzrQliDXZlF5yg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -5386,6 +5385,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.13.0
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
@@ -5436,6 +5436,19 @@ packages:
       - supports-color
       - terser
     dev: true
+
+  /vue-demi/0.13.11:
+    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dev: false
 
   /vue-demi/0.13.11_vue@3.2.45:
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
