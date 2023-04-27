@@ -51,10 +51,15 @@ export const selectionItemProps = defineHookProps({
 export const useSelectionItem = defineHookComponent({
   props: selectionItemProps,
   setup(props, { slots }) {
+    const isActive = inject(IsActiveSymbol, () => false);
+    const changeActive = inject(ChangeActiveSymbol, () => {});
+
     const parentLabel = resolveRef(inject(ItemLabelSymbol));
 
     function render() {
-      return renderSlot(slots, "default", {}, () => {
+      return renderSlot(slots, "default", {
+        active: isActive(props.value)
+      }, () => {
         let label = props.label ?? parentLabel.value;
         if (label) {
           if (typeof label == "function") {
@@ -83,10 +88,6 @@ export const useSelectionItem = defineHookComponent({
       );
       onDeactivated(() => remove());
     }
-
-    const isActive = inject(IsActiveSymbol, () => false);
-
-    const changeActive = inject(ChangeActiveSymbol, () => {});
 
     const activeClass = computed(
       () => inject(ActiveClassSymbol)?.value ?? "active"

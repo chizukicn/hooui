@@ -212,7 +212,9 @@ export const useSelectionList = defineHookComponent({
     }
 
     function render() {
-      return h(props.tag, {}, renderSlot(slots, "default", {}));
+      return h(props.tag, {}, renderSlot(slots, "default", {
+        isActive
+      }));
     }
 
     return {

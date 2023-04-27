@@ -84,13 +84,13 @@ export const useSwitch = defineHookComponent({
 });
 
 export const HiSwitch = defineComponent({
-  name: "ISwitch",
+  name: "HiSwitch",
   props: switchProps,
   emits: switchEmits,
 
   setup(props, context) {
     const { slots } = context;
-    const { switchClass, toggle } = useSwitch(props, context);
+    const { switchClass, toggle, modelValue } = useSwitch(props, context);
 
     return () => {
       return h(
@@ -99,7 +99,9 @@ export const HiSwitch = defineComponent({
           class: switchClass.value,
           [`on${capitalize(props.activateEvent)}`]: toggle
         },
-        renderSlot(slots, "default")
+        renderSlot(slots, "default", {
+          active: modelValue.value
+        })
       );
     };
   }
