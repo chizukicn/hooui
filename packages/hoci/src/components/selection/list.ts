@@ -8,7 +8,7 @@ import {
   reactive,
   renderSlot
 } from "vue";
-import type { ActivateEvent } from "../../types";
+import type { ActivateEvent, ElementLike } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
 import {
   defineHookComponent,
@@ -160,10 +160,10 @@ export const useSelectionList = defineHookComponent({
       return actives.includes(value);
     }
 
-    async function changeActive(option: any) {
-      if (isActive(option)) {
+    function changeActive(value: any) {
+      if (isActive(value)) {
         if (props.multiple || props.clearable) {
-          actives.splice(actives.indexOf(option), 1);
+          actives.splice(actives.indexOf(value), 1);
           emitChange();
         }
       } else {
@@ -171,11 +171,11 @@ export const useSelectionList = defineHookComponent({
           const limit
             = typeof props.multiple === "number" ? props.multiple : Infinity;
           if (actives.length < limit) {
-            actives.push(option);
+            actives.push(value);
             emitChange();
           }
         } else {
-          actives.splice(0, actives.length, option);
+          actives.splice(0, actives.length, value);
           emitChange();
         }
       }
@@ -213,7 +213,9 @@ export const useSelectionList = defineHookComponent({
 
     function render() {
       return h(props.tag, {}, renderSlot(slots, "default", {
-        isActive
+        isActive,
+        changeActive,
+        renderItem
       }));
     }
 
@@ -237,3 +239,9 @@ export const HiSelection = defineComponent({
     return () => render();
   }
 });
+
+export interface HiSelectionSlotData {
+  isActive(value: any): boolean
+  changeActive(value: any): void
+  renderItem: () => ElementLike
+}

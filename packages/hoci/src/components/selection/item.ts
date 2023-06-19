@@ -56,9 +56,14 @@ export const useSelectionItem = defineHookComponent({
 
     const parentLabel = resolveRef(inject(ItemLabelSymbol));
 
+    const activate = () => {
+      changeActive(props.value);
+    };
+
     function render() {
       return renderSlot(slots, "default", {
-        active: isActive(props.value)
+        active: isActive(props.value),
+        activate
       }, () => {
         let label = props.label ?? parentLabel.value;
         if (label) {
@@ -140,3 +145,8 @@ export const HiItem = defineComponent({
       );
   }
 });
+
+export interface HiItemSlotsData {
+  active: boolean
+  activate(): void
+}
