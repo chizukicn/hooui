@@ -1,4 +1,4 @@
-import type { PropType } from "vue";
+import { type PropType } from "vue";
 import { capitalize, computed, defineComponent, h, renderSlot } from "vue";
 import { useVModel } from "@vueuse/core";
 import {
@@ -6,7 +6,7 @@ import {
   defineHookEmits,
   defineHookProps
 } from "../shared";
-import type { ActivateEvent } from "../types";
+import { type ActivateEvent } from "../types";
 import { classPropType } from "../constants";
 
 export const switchProps = defineHookProps({

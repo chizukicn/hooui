@@ -1,4 +1,4 @@
-import type { PropType } from "vue";
+import { type PropType } from "vue";
 
 export const valuePropType = [
   String,
@@ -9,9 +9,9 @@ export const valuePropType = [
 ] as PropType<any>;
 
 export const classPropType = [String, Array, Object] as PropType<
-  string | string[] | Record<string, boolean>
+string | string[] | Record<string, boolean>
 >;
 
 export const labelPropType = [String, Function] as PropType<
-  string | ((val?: any) => string) | null
+string | ((val?: any) => string) | null
 >;

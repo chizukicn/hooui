@@ -1,6 +1,6 @@
-import type { MaybeRef } from "@vueuse/core";
-import type { InjectionKey, Ref } from "vue";
-import type { ActivateEvent, ClassType, ElementLike } from "../../types";
+import { type MaybeRef } from "@vueuse/core";
+import { type InjectionKey, type Ref } from "vue";
+import { type ActivateEvent, type ClassType, type ElementLike } from "../../types";
 
 export type InitFunction = (option: Option) => () => void;
 

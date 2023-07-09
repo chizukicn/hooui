@@ -1,5 +1,5 @@
 import { isDefined, syncRef } from "@vueuse/core";
-import type { PropType } from "vue";
+import { type PropType } from "vue";
 import {
   computed,
   defineComponent,
@@ -8,7 +8,7 @@ import {
   reactive,
   renderSlot
 } from "vue";
-import type { ActivateEvent, ElementLike } from "../../types";
+import { type ActivateEvent, type ElementLike } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
 import {
   defineHookComponent,
@@ -16,7 +16,7 @@ import {
   defineHookProps,
   normalizeClass
 } from "../../shared";
-import type { Option } from "./constants";
+import { type Option } from "./constants";
 import {
   ActivateEventSymbol,
   ActiveClassSymbol,
@@ -169,7 +169,7 @@ export const useSelectionList = defineHookComponent({
       } else {
         if (props.multiple) {
           const limit
-            = typeof props.multiple === "number" ? props.multiple : Infinity;
+            = typeof props.multiple === "number" ? props.multiple : Number.POSITIVE_INFINITY;
           if (actives.length < limit) {
             actives.push(value);
             emitChange();

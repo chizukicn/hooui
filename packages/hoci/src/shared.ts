@@ -1,15 +1,15 @@
-import type { MaybeFunction } from "maybe-types";
-import type {
-  ComponentObjectPropsOptions,
-  ComponentPropsOptions,
-  EmitsOptions,
-  ExtractDefaultPropTypes,
-  ExtractPropTypes,
-  PropType,
-  SetupContext
+import { type MaybeFunction } from "maybe-types";
+import {
+  type ComponentObjectPropsOptions,
+  type ComponentPropsOptions,
+  type EmitsOptions,
+  type ExtractDefaultPropTypes,
+  type ExtractPropTypes,
+  type PropType,
+  type SetupContext
 } from "vue";
 import { reactiveComputed } from "@vueuse/core";
-import type { ClassType } from "./types";
+import { type ClassType } from "./types";
 
 export interface HookComponentOptions<
   R,

@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import "windi.css";
+import "uno.css";
 import App from "./app.vue";
 
 createApp(App)

@@ -1,5 +1,5 @@
-import { resolveRef } from "@vueuse/core";
-import type { PropType } from "vue";
+import { toRef } from "@vueuse/core";
+import { type PropType } from "vue";
 import {
   capitalize,
   computed,
@@ -11,7 +11,7 @@ import {
   watch
 } from "vue";
 import { defineHookComponent, defineHookProps } from "../../shared";
-import type { ActivateEvent, ElementLike } from "../../types";
+import { type ActivateEvent, type ElementLike } from "../../types";
 import { valuePropType } from "../../constants";
 import {
   ActivateEventSymbol,
@@ -33,7 +33,7 @@ export const selectionItemProps = defineHookProps({
   },
   label: {
     type: [Function, String] as PropType<
-      string | ((val: any) => string) | ElementLike | null
+    string | ((val: any) => string) | ElementLike | null
     >
   },
   keepAlive: {
@@ -54,7 +54,7 @@ export const useSelectionItem = defineHookComponent({
     const isActive = inject(IsActiveSymbol, () => false);
     const changeActive = inject(ChangeActiveSymbol, () => {});
 
-    const parentLabel = resolveRef(inject(ItemLabelSymbol));
+    const parentLabel = toRef(inject(ItemLabelSymbol));
 
     const activate = () => {
       changeActive(props.value);
@@ -66,10 +66,8 @@ export const useSelectionItem = defineHookComponent({
         activate
       }, () => {
         let label = props.label ?? parentLabel.value;
-        if (label) {
-          if (typeof label == "function") {
-            label = label(props.value)!;
-          }
+        if (label && typeof label == "function") {
+          label = label(props.value)!;
         }
         return Array.isArray(label) ? label : [label];
       });
@@ -107,7 +105,7 @@ export const useSelectionItem = defineHookComponent({
       );
     });
 
-    const activateEvent = resolveRef(() => {
+    const activateEvent = toRef(() => {
       const event = inject(ActivateEventSymbol);
       return props.activateEvent ?? event?.value ?? "click";
     });
