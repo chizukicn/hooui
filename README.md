@@ -7,7 +7,7 @@
 [![License][license-src]][license-href]
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-This is my package description.
+A headless component library for Vue 3.
 
 ## Usage
 
@@ -27,7 +27,7 @@ pnpm install hoci
 Import:
 
 ```tsx
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { HiItem, HiSelection } from "hoci";
 
 export default defineComponent(() => {
