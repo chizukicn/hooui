@@ -5,9 +5,9 @@ import {
   defineHookComponent,
   defineHookEmits,
   defineHookProps
-} from "../shared";
-import { type ActivateEvent } from "../types";
-import { classPropType } from "../constants";
+} from "../../shared";
+import { type ActivateEvent } from "../../types";
+import { classPropType } from "../../constants";
 
 export const switchProps = defineHookProps({
   modelValue: {
@@ -16,7 +16,7 @@ export const switchProps = defineHookProps({
   },
   class: {
     type: classPropType,
-    default: ""
+    required: true
   },
   activeClass: {
     type: classPropType,
@@ -29,10 +29,6 @@ export const switchProps = defineHookProps({
   activateEvent: {
     type: String as PropType<ActivateEvent>,
     default: "click"
-  },
-  tag: {
-    type: String,
-    default: "div"
   },
   disabled: {
     type: Boolean,
@@ -85,7 +81,13 @@ export const useSwitch = defineHookComponent({
 
 export const HiSwitch = defineComponent({
   name: "HiSwitch",
-  props: switchProps,
+  props: {
+    ...switchProps,
+    tag: {
+      type: String,
+      default: "div"
+    }
+  },
   emits: switchEmits,
 
   setup(props, context) {

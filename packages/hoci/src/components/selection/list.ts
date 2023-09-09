@@ -29,10 +29,7 @@ import {
 } from "./constants";
 
 export const selectionListProps = defineHookProps({
-  tag: {
-    type: String,
-    default: "div"
-  },
+
   modelValue: {
     type: valuePropType,
     default: () => null
@@ -92,7 +89,7 @@ export const selectionListEmits = defineHookEmits([
 export const useSelectionList = defineHookComponent({
   props: selectionListProps,
   emits: selectionListEmits,
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     const options = reactive<Option[]>([]);
 
     function toArray(value?: any | any[]): any[] {
@@ -211,32 +208,34 @@ export const useSelectionList = defineHookComponent({
       return props.multiple ? children : children[0];
     }
 
-    function render() {
-      return h(props.tag, {}, renderSlot(slots, "default", {
-        isActive,
-        changeActive,
-        renderItem
-      }));
-    }
-
     return {
       options,
       actives,
       isActive,
       changeActive,
-      renderItem,
-      render
+      renderItem
     };
   }
 });
 
 export const HiSelection = defineComponent({
   name: "HiSelection",
-  props: selectionListProps,
+  props: {
+    ...selectionListProps,
+    tag: {
+      type: String,
+      default: "div"
+    }
+  },
   emits: selectionListEmits,
   setup(props, context) {
-    const { render } = useSelectionList(props, context);
-    return () => render();
+    const { isActive, changeActive, renderItem } = useSelectionList(props, context);
+    const { slots } = context;
+    return () => h(props.tag, {}, renderSlot(slots, "default", {
+      isActive,
+      changeActive,
+      renderItem
+    }));
   }
 });
 

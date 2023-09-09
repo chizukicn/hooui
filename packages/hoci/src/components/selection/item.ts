@@ -1,5 +1,5 @@
 import { toRef } from "@vueuse/core";
-import { type PropType } from "vue";
+import type { PropType } from "vue";
 import {
   capitalize,
   computed,
@@ -11,7 +11,7 @@ import {
   watch
 } from "vue";
 import { defineHookComponent, defineHookProps } from "../../shared";
-import { type ActivateEvent, type ElementLike } from "../../types";
+import type { ActivateEvent, ElementLike } from "../../types";
 import { valuePropType } from "../../constants";
 import {
   ActivateEventSymbol,
@@ -111,9 +111,7 @@ export const useSelectionItem = defineHookComponent({
     });
 
     return {
-      activate() {
-        changeActive(props.value);
-      },
+      activate,
       render,
       isActive,
       activeClass,
@@ -126,7 +124,13 @@ export const useSelectionItem = defineHookComponent({
 
 export const HiItem = defineComponent({
   name: "HiItem",
-  props: selectionItemProps,
+  props: {
+    ...selectionItemProps,
+    tag: {
+      type: String,
+      default: "div"
+    }
+  },
   setup(props, context) {
     const { render, activate, itemClass, activateEvent } = useSelectionItem(
       props,
@@ -134,7 +138,7 @@ export const HiItem = defineComponent({
     );
     return () =>
       h(
-        "div",
+        props.tag,
         {
           class: itemClass.value,
           [`on${capitalize(activateEvent.value)}`]: activate
