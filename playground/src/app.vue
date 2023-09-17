@@ -4,7 +4,7 @@ import { HiIcon, HiItem, HiSelection, HiSwitch } from "hoci";
 import hociSvg from "./assets/hoci.svg";
 
 export default defineComponent(() => {
-  const selectedIndex = ref(2);
+  const selectedIndex = ref<number[] | number>(2);
   const logs = ref<string[]>([]);
 
   const selectionState = reactive({
@@ -36,16 +36,27 @@ export default defineComponent(() => {
   return () => {
     return <div class="w-full p-4">
       <HiIcon class="text-green rounded" width={48} height={48} src={hociSvg}/>
-      <HiSelection {...selectionState} activateEvent="click" onChange={handleChange} v-model={selectedIndex.value} tag="div" itemClass="duration-300 cursor-pointer px-2 py-1" class="flex space-x-4 items-center" activeClass="text-white bg-hex-f00">
+      <HiSelection {...selectionState}
+        activateEvent="click"
+        onChange={handleChange}
+        v-model={selectedIndex.value}
+        tag="div"
+        itemClass="duration-300 cursor-pointer px-2 py-1"
+        class="flex space-x-4 items-center"
+        activeClass="text-white bg-hex-f00"
+        disabledClass="bg-gray-200 cursor-not-allowed line-through text-gray-500"
+      >
         <HiItem value={1}>Item 1</HiItem>
         <HiItem value={2}>Item 2</HiItem>
-        <HiItem value={3}>Item 3</HiItem>
+        <HiItem disabled value={3}>Item 3</HiItem>
+        <HiItem value={4}>Item 4</HiItem>
+        <HiItem value={5}>Item 5</HiItem>
       </HiSelection>
       <div class="flex space-x-4 items-center">
         <HiSwitch tag="span" v-model={selectionState.multiple} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Multiple</HiSwitch>
         <HiSwitch tag="span" v-model={selectionState.clearable} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Clearable</HiSwitch>
       </div>
-      <div>Selected:{selectedIndex.value}</div>
+      <div>Selected:{JSON.stringify(selectedIndex.value)}</div>
       <div class="mt-4"></div>
       <div class="flex justify-between items-center">
         <div>Console: </div>

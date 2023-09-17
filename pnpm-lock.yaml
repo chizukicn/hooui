@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tslx:
+        specifier: ^0.1.0
+        version: 0.1.0
     devDependencies:
       '@curev/eslint-config':
         specifier: ^0.2.1
@@ -2792,6 +2796,10 @@ packages:
 
   /csstype@2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
+
+  /csstype@3.1.2:
+    resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+    dev: false
 
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -5881,6 +5889,13 @@ packages:
       minimist: 1.2.8
       strip-bom: 3.0.0
     dev: true
+
+  /tslx@0.1.0:
+    resolution: {integrity: sha512-7ETBcrB0xR9ENVhRQtSE7WCMsR8MfLGIvR9pJ3VyMe/LQUNofwdp4m5MeFeKvM626IfxDVIj5YBXdORKWV9vuA==}
+    requiresBuild: true
+    dependencies:
+      csstype: 3.1.2
+    dev: false
 
   /tuf-js@1.1.7:
     resolution: {integrity: sha512-i3P9Kgw3ytjELUfpuKVDNBJvk4u5bXL6gskv572mcevPbSKCV3zt3djhmlEQ65yERjIbOSncy7U4cQJaB1CBCg==}

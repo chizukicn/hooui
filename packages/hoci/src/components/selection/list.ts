@@ -8,15 +8,15 @@ import {
   reactive,
   renderSlot
 } from "vue";
+import { cls } from "tslx";
 import { type ActivateEvent, type ElementLike } from "../../types";
 import { classPropType, labelPropType, valuePropType } from "../../constants";
 import {
   defineHookComponent,
   defineHookEmits,
-  defineHookProps,
-  normalizeClass
+  defineHookProps
 } from "../../shared";
-import { type Option } from "./constants";
+import { DisabledClassSymbol, type Option } from "./constants";
 import {
   ActivateEventSymbol,
   ActiveClassSymbol,
@@ -47,6 +47,10 @@ export const selectionListProps = defineHookProps({
   itemClass: {
     type: classPropType,
     default: ""
+  },
+  disabledClass: {
+    type: classPropType,
+    default: "disabled"
   },
   unactiveClass: {
     type: classPropType,
@@ -128,23 +132,30 @@ export const useSelectionList = defineHookComponent({
 
     provide(
       ActiveClassSymbol,
-      computed(() => normalizeClass(props.activeClass))
+      computed(() => cls(props.activeClass))
     );
 
     provide(
       UnactiveSymbol,
-      computed(() => normalizeClass(props.unactiveClass))
+      computed(() => cls(props.unactiveClass))
+    );
+
+    provide(
+      DisabledClassSymbol,
+      computed(() => cls(props.disabledClass))
     );
 
     provide(
       ItemClassSymbol,
-      computed(() => normalizeClass(props.itemClass))
+      computed(() => cls(props.itemClass))
     );
 
     provide(
       ItemLabelSymbol,
       computed(() => props.label)
     );
+
+
 
     provide(
       ActivateEventSymbol,

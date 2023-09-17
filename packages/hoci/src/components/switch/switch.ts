@@ -1,6 +1,7 @@
 import { type PropType } from "vue";
 import { capitalize, computed, defineComponent, h, renderSlot } from "vue";
 import { useVModel } from "@vueuse/core";
+import { cls } from "tslx";
 import {
   defineHookComponent,
   defineHookEmits,
@@ -63,18 +64,21 @@ export const useSwitch = defineHookComponent({
       }
     };
 
-    const switchClass = computed(() => {
-      return [
+    const isDisabled = computed(() => props.disabled);
+
+    const className = computed(() => {
+      return cls([
         props.class,
         modelValue.value ? props.activeClass : props.unactiveClass,
-        props.disabled ? props.disabledClass : ""
-      ];
+        isDisabled.value ? props.disabledClass : ""
+      ]);
     });
 
     return {
       toggle,
       modelValue,
-      switchClass
+      className,
+      isDisabled
     };
   }
 });
@@ -92,17 +96,18 @@ export const HiSwitch = defineComponent({
 
   setup(props, context) {
     const { slots } = context;
-    const { switchClass, toggle, modelValue } = useSwitch(props, context);
+    const { className, toggle, modelValue, isDisabled } = useSwitch(props, context);
 
     return () => {
       return h(
         props.tag,
         {
-          class: switchClass.value,
+          class: className.value,
           [`on${capitalize(props.activateEvent)}`]: toggle
         },
         renderSlot(slots, "default", {
-          active: modelValue.value
+          active: modelValue.value,
+          isDisabled: isDisabled.value
         })
       );
     };

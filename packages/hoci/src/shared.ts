@@ -9,7 +9,6 @@ import type {
   SetupContext
 } from "vue";
 import { reactiveComputed } from "@vueuse/core";
-import type { ClassType } from "./types";
 
 export interface HookComponentOptions<
   R,
@@ -133,14 +132,3 @@ export function isExtends(types: PropType<any>, value: PropType<any>): boolean {
   return value === types;
 }
 
-export function normalizeClass(value: ClassType): string {
-  if (Array.isArray(value)) {
-    return value.join(" ");
-  }
-  if (typeof value === "string") {
-    return value;
-  }
-  return Object.keys(value)
-    .filter((e) => !!value[e])
-    .join(" ");
-}

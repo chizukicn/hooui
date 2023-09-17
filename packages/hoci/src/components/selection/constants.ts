@@ -13,6 +13,7 @@ export const ModelValueSymbol = Symbol("[hi-selection]model-value");
 export const ActiveClassSymbol: InjectionKey<Ref<ClassType>> = Symbol("[hi-selection]active-class");
 export const ItemClassSymbol: InjectionKey<Ref<ClassType>> = Symbol("[hi-selection]item-class");
 export const UnactiveSymbol: InjectionKey<Ref<ClassType>> = Symbol("[hi-selection]unactive-class");
+export const DisabledClassSymbol: InjectionKey<Ref<ClassType>> = Symbol("[hi-selection]disabled-class");
 
 export const ItemLabelSymbol: InjectionKey<MaybeRef<string | ((_: any) => ElementLike | null | undefined) | null | undefined>> = Symbol("[hi-selection]label");
 export const ItemOptionsSymbol = Symbol("[hi-selection]options");

@@ -51,5 +51,8 @@
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "dependencies": {
+    "tslx": "^0.1.0"
   }
 }
