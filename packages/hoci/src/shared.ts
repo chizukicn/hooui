@@ -61,7 +61,7 @@ export function defineHookComponent<
     context: SetupContext<E>
   ) => {
     const p = withDefaults<P, D, Defaults>(
-      isFunction(props) ? reactiveComputed(() => props()) : props,
+      isFunction(props) ? (reactiveComputed(() => props()) as Partial<Defaults> & Omit<D, keyof Defaults>) : props,
       options.props!
     );
     return options.setup(p, context);

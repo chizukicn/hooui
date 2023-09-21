@@ -2,6 +2,8 @@
   "name": "hoci",
   "version": "0.2.0",
   "description": "",
+  "author": "chizuki",
+  "license": "MIT",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -10,16 +12,16 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "stub": "unbuild --stub"
-  },
-  "author": "chizuki",
-  "license": "MIT",
-  "dependencies": {
-    "@vueuse/core": "^10.2.1",
-    "maybe-types": "^0.0.3"
+    "stub": "unbuild --stub",
+    "prepublish": "pnpm build"
   },
   "peerDependencies": {
     "@vueuse/core": ">=10",
     "vue": "^3.2.31"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.4.1",
+    "maybe-types": "^0.0.3",
+    "tslx": "^0.1.0"
   }
 }
