@@ -2,6 +2,7 @@
   "name": "@hoci/monorepo",
   "version": "0.2.1",
   "private": true,
+  "packageManager": "pnpm@8.8.0",
   "description": "hook ui .",
   "author": "chizuki",
   "license": "MIT",
