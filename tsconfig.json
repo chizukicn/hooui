@@ -25,7 +25,8 @@
     "playgrounds/**/*.tsx",
     "playgrounds/**/*.vue",
     "packages/**/**.ts",
-    "packages/**/**.tsx"
+    "packages/**/**.tsx",
+    "test/**/**.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }
