@@ -7,10 +7,6 @@ export const HiAffix = defineComponent({
     as: {
       type: String,
       default: "div"
-    },
-    wrapperAs: {
-      type: String,
-      default: "div"
     }
   },
   setup(props, context) {

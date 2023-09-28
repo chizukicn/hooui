@@ -1,4 +1,4 @@
-import { computed, inject, nextTick, provide, ref, watchPostEffect } from "vue";
+import { computed, inject, provide, ref, watchPostEffect } from "vue";
 import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
 import { useElementVisibility, useEventListener } from "@vueuse/core";
 import { type CSSProperties } from "tslx";
@@ -29,7 +29,7 @@ export const affixProps = defineHookProps(
      */
     target: {
       type: [String, Object, Function] as PropType<
-      string | HTMLElement | Window
+      string | HTMLElement
       >
     },
     /**
@@ -47,7 +47,7 @@ export type AffixProps = typeof affixProps;
 
 export const affixEmits = defineHookEmits(["scroll", "change"]);
 
-export const AFFIX_TARGET_KEY: InjectionKey<MaybeRefOrGetter<HTMLElement | Window | Element | null | undefined>> = Symbol("AFFIX_TARGET_KEY");
+export const AFFIX_TARGET_KEY: InjectionKey<MaybeRefOrGetter<Element | null | undefined>> = Symbol("AFFIX_TARGET_KEY");
 
 function getTargetRect(target: Element | Window) {
   return isWindow(target)
@@ -58,16 +58,14 @@ function getTargetRect(target: Element | Window) {
     : target.getBoundingClientRect();
 }
 
-
 export const useAffix = defineHookComponent({
   props: affixProps,
   setup(props, { emit }) {
     const wrapperRef = ref<HTMLElement | null>(null);
 
-    const parentRef = inject(AFFIX_TARGET_KEY, window);
+    const parentRef = inject(AFFIX_TARGET_KEY, undefined);
 
     const targetRef = useElement(props.target, parentRef);
-
 
     const isFixed = ref(false);
     const placeholderStyle: Ref<CSSProperties> = ref({});
@@ -79,22 +77,20 @@ export const useAffix = defineHookComponent({
 
     const wrapperVisible = useElementVisibility(wrapperRef);
 
-    const container = computed(() => {
-      if (!targetRef.value || !wrapperVisible.value) {
+    const containerRef = computed(() => {
+      if (!wrapperVisible.value) {
         return null;
       }
       return targetRef.value ?? window;
     });
 
     const updatePosition = throttleByRaf(async () => {
-      if (!wrapperRef.value || !targetRef.value) {
+      if (!wrapperRef.value || !containerRef.value) {
         return;
       }
 
-      await nextTick();
-
       const wrapperRect = wrapperRef.value.getBoundingClientRect();
-      const targetRect = getTargetRect(targetRef.value);
+      const targetRect = getTargetRect(containerRef.value);
       let newIsFixed = false;
       let newFixedStyles = {};
       const newPlaceholderStyles: CSSProperties = {
@@ -142,12 +138,12 @@ export const useAffix = defineHookComponent({
 
 
 
-    useEventListener(container, "scroll", () => {
+    useEventListener(containerRef, "scroll", () => {
       emit("scroll");
       updatePosition();
     });
 
-    useEventListener(container, "resize", updatePosition);
+    useEventListener(containerRef, "resize", updatePosition);
 
     // When the scroll container is not a window, you need to bind the outer scroll event of the scroll container to update the position
     watchPostEffect(updatePosition);
@@ -155,6 +151,7 @@ export const useAffix = defineHookComponent({
     return {
       classNames,
       wrapperRef,
+      containerRef,
       isFixed,
       placeholderStyle,
       fixedStyle,
@@ -164,6 +161,7 @@ export const useAffix = defineHookComponent({
 });
 
 
-export function provideAffixTarget(target: MaybeRefOrGetter<HTMLElement | Element | null | undefined>) {
+export function provideAffixTarget(target: MaybeRefOrGetter<Element | null | undefined>) {
   provide(AFFIX_TARGET_KEY, target);
 }
+
