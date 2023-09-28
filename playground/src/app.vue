@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, reactive, ref } from "vue";
-import { HiIcon, HiItem, HiSelection, HiSwitch } from "hoci";
+import { HiAffix, HiIcon, HiItem, HiSelection, HiSwitch } from "hoci";
 import hociSvg from "./assets/hoci.svg";
 
 export default defineComponent(() => {
@@ -36,11 +36,17 @@ export default defineComponent(() => {
   return () => {
     return <div class="w-full p-4">
       <HiIcon class="text-green rounded" width={48} height={48} src={hociSvg}/>
+
+      <HiAffix class="my-1" as="div" offset={30}>
+        <div class="inline-block  p-4 bg-blue-200" >
+          Offset Top 30px
+        </div>
+      </HiAffix>
       <HiSelection {...selectionState}
         activateEvent="click"
         onChange={handleChange}
         v-model={selectedIndex.value}
-        tag="div"
+        as="div"
         itemClass="duration-300 cursor-pointer px-2 py-1"
         class="flex space-x-4 items-center"
         activeClass="text-white bg-hex-f00"
@@ -53,8 +59,8 @@ export default defineComponent(() => {
         <HiItem value={5}>Item 5</HiItem>
       </HiSelection>
       <div class="flex space-x-4 items-center">
-        <HiSwitch tag="span" v-model={selectionState.multiple} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Multiple</HiSwitch>
-        <HiSwitch tag="span" v-model={selectionState.clearable} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Clearable</HiSwitch>
+        <HiSwitch as="span" v-model={selectionState.multiple} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Multiple</HiSwitch>
+        <HiSwitch as="span" v-model={selectionState.clearable} class="cursor-pointer mt-4 duration-200 select-none" activeClass="text-hex-f00">Clearable</HiSwitch>
       </div>
       <div>Selected:{JSON.stringify(selectedIndex.value)}</div>
       <div class="mt-4"></div>
@@ -62,7 +68,7 @@ export default defineComponent(() => {
         <div>Console: </div>
         <button onClick={clearLog} class="border-solid border-1 border-gray-50">Clear</button>
       </div>
-      <div class="bg-gray-500 h-100 mt-2 text-white px-4 overflow-y-auto">
+      <div class="bg-gray-500 h-200 mt-2 text-white px-4 overflow-y-auto">
         {logs.value.map((log, index) => <div class="h-5 leading-5" key={index}>{log}</div>)}
       </div>
     </div>;

@@ -1,5 +1,5 @@
 {
-  "name": "hoci",
+  "name": "@hoci/core",
   "version": "0.2.1",
   "description": "",
   "author": "chizuki",
@@ -22,8 +22,15 @@
     "stub": "unbuild --stub",
     "prepublish": "pnpm build"
   },
+  "peerDependencies": {
+    "@vueuse/core": ">=10",
+    "vue": "^3.3.4"
+  },
   "dependencies": {
-    "@hoci/components": "workspace:*",
-    "@hoci/core": "workspace:*"
+    "@hoci/core": "workspace:*",
+    "@hoci/shared": "workspace:*",
+    "@vueuse/core": "^10.4.1",
+    "maybe-types": "^0.0.3",
+    "tslx": "^0.1.0"
   }
 }

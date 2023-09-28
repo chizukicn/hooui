@@ -1,9 +1,7 @@
 import { defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
-  entries: [
-    "index"
-  ],
+  entries: ["index"],
   clean: true,
   declaration: true,
   failOnWarn: false,
@@ -13,7 +11,8 @@ export default defineBuildConfig({
       respectExternal: false
     },
     esbuild: {
-      target: "es2015"
+      target: "es2015",
+      jsxImportSource: "vue"
     }
   }
 });

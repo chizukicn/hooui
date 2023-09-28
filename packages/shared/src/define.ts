@@ -9,29 +9,10 @@ import type {
   SetupContext
 } from "vue";
 import { reactiveComputed } from "@vueuse/core";
+import { isConstructor, isFunction } from "./utils";
+import type { HookComponent, HookComponentOptions } from "./types";
 
-export interface HookComponentOptions<
-  R,
-  E = EmitsOptions,
-  EE extends string = string,
-  P = ComponentPropsOptions,
-  D = ExtractPropTypes<P>
-> {
-  props?: P
-  emits?: E | EE[]
-  setup: (props: D, context: SetupContext<E>) => R
-}
 
-export type HookComponent<
-  R,
-  E = EmitsOptions,
-  P = ComponentPropsOptions,
-  D = ExtractPropTypes<P>,
-  Defaults = ExtractDefaultPropTypes<P>
-> = (
-  props: MaybeFunction<Partial<Defaults> & Omit<D, keyof Defaults>>,
-  context: SetupContext<E>
-) => R;
 
 export function defineHookProps<
   P extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
@@ -68,21 +49,6 @@ export function defineHookComponent<
   };
 }
 
-type Constructor<T> =
-  | {
-    new (...args: any[]): T & {}
-  }
-  | {
-    (): T
-  };
-
-function isFunction<F extends Function>(value: unknown): value is F {
-  return typeof value === "function";
-}
-
-function isConstructor<T>(value: unknown): value is Constructor<T> {
-  return isFunction(value) && value.prototype !== undefined;
-}
 
 function withDefaults<
   P = ComponentPropsOptions,

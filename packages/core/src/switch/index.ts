@@ -1,14 +1,14 @@
-import { type PropType } from "vue";
-import { capitalize, computed, defineComponent, h, renderSlot } from "vue";
+import type { PropType } from "vue";
+import { computed } from "vue";
 import { useVModel } from "@vueuse/core";
 import { cls } from "tslx";
 import {
+  classPropType,
   defineHookComponent,
   defineHookEmits,
   defineHookProps
-} from "../../shared";
-import { type ActivateEvent } from "../../types";
-import { classPropType } from "../../constants";
+} from "@hoci/shared";
+import type { ActivateEvent } from "@hoci/shared";
 
 export const switchProps = defineHookProps({
   modelValue: {
@@ -40,6 +40,8 @@ export const switchProps = defineHookProps({
     default: ""
   }
 });
+
+export type HiSwitchProps = typeof switchProps;
 
 export const switchEmits = defineHookEmits(["update:modelValue", "change"]);
 
@@ -83,33 +85,3 @@ export const useSwitch = defineHookComponent({
   }
 });
 
-export const HiSwitch = defineComponent({
-  name: "HiSwitch",
-  props: {
-    ...switchProps,
-    tag: {
-      type: String,
-      default: "div"
-    }
-  },
-  emits: switchEmits,
-
-  setup(props, context) {
-    const { slots } = context;
-    const { className, toggle, modelValue, isDisabled } = useSwitch(props, context);
-
-    return () => {
-      return h(
-        props.tag,
-        {
-          class: className.value,
-          [`on${capitalize(props.activateEvent)}`]: toggle
-        },
-        renderSlot(slots, "default", {
-          active: modelValue.value,
-          isDisabled: isDisabled.value
-        })
-      );
-    };
-  }
-});

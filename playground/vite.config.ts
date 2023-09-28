@@ -15,7 +15,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      hoci: path.resolve(__dirname, "../packages/hoci/src/index.ts")
+      "hoci": path.resolve(__dirname, "../packages/hoci/index.ts"),
+      "@hoci/core": path.resolve(__dirname, "../packages/core/index.ts"),
+      "@hoci/components": path.resolve(__dirname, "../packages/components/index.ts"),
+      "@hoci/shared": path.resolve(__dirname, "../packages/shared/index.ts")
     }
   },
 

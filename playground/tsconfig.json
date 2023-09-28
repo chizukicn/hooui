@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["src/*"],
-      "hoci": ["../packages/hoci/src/index.ts"]
+      "hoci": ["../packages/hoci/index.ts"]
     }
   },
   "include": [

@@ -1,9 +1,7 @@
 import { defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
-  entries: [
-    "index"
-  ],
+  entries: ["index"],
   clean: true,
   declaration: true,
   failOnWarn: false,

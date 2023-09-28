@@ -1,6 +1,6 @@
-import { computed, defineComponent, h } from "vue";
+import { computed } from "vue";
 import type { CSSProperties, PropType } from "vue";
-import { defineHookComponent, defineHookProps } from "../../shared";
+import { defineHookComponent, defineHookProps } from "@hoci/shared";
 
 export const iconProps = defineHookProps({
   src: {
@@ -25,6 +25,8 @@ export const iconProps = defineHookProps({
     default: () => "auto"
   }
 });
+
+export type HiIconProps = typeof iconProps;
 
 export const useIcon = defineHookComponent({
   props: iconProps,
@@ -67,25 +69,6 @@ export const useIcon = defineHookComponent({
 
     return {
       style
-    };
-  }
-});
-
-
-export const HiIcon = defineComponent({
-  props: {
-    ...iconProps,
-    tag: {
-      type: String,
-      default: "i"
-    }
-  },
-  setup(props, context) {
-    const { style } = useIcon(props, context);
-    return () => {
-      return h(props.tag, {
-        style: style.value
-      });
     };
   }
 });

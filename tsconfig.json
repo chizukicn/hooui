@@ -1,26 +1,31 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "lib": ["esnext", "DOM"],
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "strict": true,
-        "strictNullChecks": true,
-        "resolveJsonModule": true,
-        "skipDefaultLibCheck": true,
-        "outDir": "./dist",
-        "declaration": true,
-        "jsx": "preserve",
-        "paths": {
-          "hoci":["./packages/hoci/src/index.ts"]
-        }
-    },
-    "include": [
-        "playgrounds/**/*.ts",
-        "playgrounds/**/*.tsx",
-        "playgrounds/**/*.vue",
-        "packages/**/**.ts",
-     ],
-    "exclude": ["node_modules", "dist"]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext", "DOM"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
+    "jsxImportSource": "vue",
+    "outDir": "./dist",
+    "declaration": true,
+    "jsx": "preserve",
+    "paths": {
+      "hoci": ["./packages/hoci/index.ts"],
+      "@hoci/core": ["./packages/core/index.ts"],
+      "@hoci/shared": ["./packages/shared/index.ts"],
+      "@hoci/components": ["./packages/components/index.ts"]
+    }
+  },
+  "include": [
+    "playgrounds/**/*.ts",
+    "playgrounds/**/*.tsx",
+    "playgrounds/**/*.vue",
+    "packages/**/**.ts",
+    "packages/**/**.tsx"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

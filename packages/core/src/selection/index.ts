@@ -1,34 +1,47 @@
-import { isDefined, syncRef } from "@vueuse/core";
-import { type PropType } from "vue";
+import { isDefined, syncRef, toReactive } from "@vueuse/core";
+import type { InjectionKey, PropType } from "vue";
 import {
   computed,
-  defineComponent,
-  h,
+  inject,
   provide,
-  reactive,
-  renderSlot
+  reactive
 } from "vue";
-import { cls } from "tslx";
-import { type ActivateEvent, type ElementLike } from "../../types";
-import { classPropType, labelPropType, valuePropType } from "../../constants";
 import {
+  classPropType,
   defineHookComponent,
   defineHookEmits,
-  defineHookProps
-} from "../../shared";
-import { DisabledClassSymbol, type Option } from "./constants";
-import {
-  ActivateEventSymbol,
-  ActiveClassSymbol,
-  ChangeActiveSymbol,
-  InitSymbol,
-  IsActiveSymbol,
-  ItemClassSymbol,
-  ItemLabelSymbol,
-  UnactiveSymbol
-} from "./constants";
+  defineHookProps,
+  labelPropType,
+  valuePropType
+} from "@hoci/shared";
+import type { ActivateEvent, ElementLike } from "@hoci/shared";
+import { cls } from "tslx";
 
-export const selectionListProps = defineHookProps({
+
+export type InitFunction = (option: Option) => () => void;
+
+export interface Option {
+  id?: string
+  label?: string
+  value: any | null
+  render(): ElementLike
+}
+
+
+export interface HiSelectionContext {
+  changeActive: (_: any) => void
+  isActive: (_: any) => boolean
+  init?: InitFunction
+  activateEvent: ActivateEvent
+  activeClass: string
+  itemClass: string
+  unactiveClass: string
+  disabledClass: string
+  label: string | ((_: any) => ElementLike | null | undefined) | null | undefined
+  multiple: boolean | number
+}
+
+export const selectionProps = defineHookProps({
 
   modelValue: {
     type: valuePropType,
@@ -83,16 +96,37 @@ export const selectionListProps = defineHookProps({
   }
 });
 
-export const selectionListEmits = defineHookEmits([
+
+export type SelectionProps = typeof selectionProps;
+
+
+
+export const selectionEmits = defineHookEmits([
   "update:modelValue",
   "change",
   "load",
   "unload"
 ]);
 
+const HiSelectionContextSymbol: InjectionKey<HiSelectionContext> = Symbol("[hi-selection]context");
+
+export function useSelectionContext() {
+  return inject(HiSelectionContextSymbol, {
+    isActive: () => false,
+    changeActive: () => {},
+    activeClass: "active",
+    unactiveClass: "unactive",
+    disabledClass: "disabled",
+    itemClass: "",
+    activateEvent: "click",
+    label: null,
+    multiple: false
+  });
+}
+
 export const useSelectionList = defineHookComponent({
-  props: selectionListProps,
-  emits: selectionListEmits,
+  props: selectionProps,
+  emits: selectionEmits,
   setup(props, { emit }) {
     const options = reactive<Option[]>([]);
 
@@ -130,37 +164,6 @@ export const useSelectionList = defineHookComponent({
 
     syncRef(currentValue, modelValue, { immediate: true, deep: true });
 
-    provide(
-      ActiveClassSymbol,
-      computed(() => cls(props.activeClass))
-    );
-
-    provide(
-      UnactiveSymbol,
-      computed(() => cls(props.unactiveClass))
-    );
-
-    provide(
-      DisabledClassSymbol,
-      computed(() => cls(props.disabledClass))
-    );
-
-    provide(
-      ItemClassSymbol,
-      computed(() => cls(props.itemClass))
-    );
-
-    provide(
-      ItemLabelSymbol,
-      computed(() => props.label)
-    );
-
-
-
-    provide(
-      ActivateEventSymbol,
-      computed(() => props.activateEvent)
-    );
 
     const emitChange = () => emit("change", currentValue.value);
 
@@ -189,11 +192,7 @@ export const useSelectionList = defineHookComponent({
       }
     }
 
-    provide(IsActiveSymbol, isActive);
-
-    provide(ChangeActiveSymbol, changeActive);
-
-    provide(InitSymbol, (option: Option) => {
+    const init = (option: Option) => {
       function remove() {
         const index = options.findIndex((e) => e.id === option.id);
         if (index > -1) {
@@ -210,7 +209,25 @@ export const useSelectionList = defineHookComponent({
       options.push(option);
       emit("load", option);
       return remove;
-    });
+    };
+
+
+    provide(HiSelectionContextSymbol, toReactive({
+      activeClass: computed(() => cls(props.activeClass)),
+      unactiveClass: computed(() => cls(props.unactiveClass)),
+      disabledClass: computed(() => cls(props.disabledClass)),
+      itemClass: computed(() => cls(props.itemClass)),
+      label: computed(() => props.label),
+      multiple: computed(() => props.multiple),
+      clearable: computed(() => props.clearable),
+      defaultValue: computed(() => props.defaultValue),
+      activateEvent: computed(() => props.activateEvent),
+      active: currentValue,
+      changeActive,
+      isActive,
+      init
+    }));
+
 
     function renderItem() {
       const children = options
@@ -229,29 +246,10 @@ export const useSelectionList = defineHookComponent({
   }
 });
 
-export const HiSelection = defineComponent({
-  name: "HiSelection",
-  props: {
-    ...selectionListProps,
-    tag: {
-      type: String,
-      default: "div"
-    }
-  },
-  emits: selectionListEmits,
-  setup(props, context) {
-    const { isActive, changeActive, renderItem } = useSelectionList(props, context);
-    const { slots } = context;
-    return () => h(props.tag, {}, renderSlot(slots, "default", {
-      isActive,
-      changeActive,
-      renderItem
-    }));
-  }
-});
 
-export interface HiSelectionSlotData {
-  isActive(value: any): boolean
-  changeActive(value: any): void
+
+export interface HiSelectionSlotData extends Record<string, unknown> {
+  isActive: (value: any) => boolean
+  changeActive: (value: any) => void
   renderItem: () => ElementLike
 }

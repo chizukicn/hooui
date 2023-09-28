@@ -1,9 +1,15 @@
 {
-  "name": "hoci",
+  "name": "@hoci/components",
   "version": "0.2.1",
   "description": "",
   "author": "chizuki",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chizukicn/hoci.git",
+    "directory": "packages/components"
+  },
+  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./dist/index.cjs",
@@ -22,8 +28,14 @@
     "stub": "unbuild --stub",
     "prepublish": "pnpm build"
   },
+  "peerDependencies": {
+    "@vueuse/core": ">=10",
+    "vue": "^3.3.4"
+  },
   "dependencies": {
-    "@hoci/components": "workspace:*",
-    "@hoci/core": "workspace:*"
+    "@hoci/core": "workspace:*",
+    "@vueuse/core": "^10.4.1",
+    "maybe-types": "^0.0.3",
+    "tslx": "^0.1.0"
   }
 }
