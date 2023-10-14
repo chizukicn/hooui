@@ -15,14 +15,14 @@ export const HiSwitch = defineComponent({
 
   setup(props, context) {
     const { slots } = context;
-    const { className, toggle, modelValue, isDisabled } = useSwitch(props, context);
+    const { className, toggle, modelValue, isDisabled, activateEvent } = useSwitch(props, context);
 
     return () => {
       return h(
         props.as,
         {
           class: className.value,
-          [`on${capitalize(props.activateEvent)}`]: toggle
+          [`on${capitalize(activateEvent.value)}`]: toggle
         },
         renderSlot(slots, "default", {
           active: modelValue.value,

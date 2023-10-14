@@ -5,7 +5,7 @@ export const HiIcon = defineComponent({
     ...iconProps,
     as: {
       type: String,
-      default: "i"
+      default: "div"
     }
   },
   setup(props, context) {

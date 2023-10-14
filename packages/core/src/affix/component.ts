@@ -10,12 +10,12 @@ export const HiAffix = defineComponent({
     }
   },
   setup(props, context) {
-    const { classNames, wrapperRef, isFixed, placeholderStyle, fixedStyle } = useAffix(props, context);
+    const { className, wrapperRef, isFixed, placeholderStyle, fixedStyle } = useAffix(props, context);
 
     return () => h(props.as, { ref: wrapperRef },
       [
         isFixed.value && h("div", { style: placeholderStyle.value }),
-        h("div", { class: classNames.value, style: fixedStyle.value }, renderSlot(context.slots, "default"))
+        h("div", { class: className.value, style: fixedStyle.value }, renderSlot(context.slots, "default"))
       ]
     );
   }

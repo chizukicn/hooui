@@ -6,7 +6,8 @@ import {
   classPropType,
   defineHookComponent,
   defineHookEmits,
-  defineHookProps
+  defineHookProps,
+  useSharedConfig
 } from "@hoci/shared";
 import type { ActivateEvent } from "@hoci/shared";
 
@@ -28,8 +29,7 @@ export const switchProps = defineHookProps({
     default: "unchecked"
   },
   activateEvent: {
-    type: String as PropType<ActivateEvent>,
-    default: "click"
+    type: String as PropType<ActivateEvent>
   },
   disabled: {
     type: Boolean,
@@ -76,11 +76,16 @@ export const useSwitch = defineHookComponent({
       ]);
     });
 
+    const sharedConfig = useSharedConfig();
+
+    const activateEvent = computed(() => props.activateEvent ?? sharedConfig.activateEvent);
+
     return {
       toggle,
       modelValue,
       className,
-      isDisabled
+      isDisabled,
+      activateEvent
     };
   }
 });

@@ -1,7 +1,7 @@
 import { computed, inject, provide, ref, watchPostEffect } from "vue";
 import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
 import { useElementVisibility, useEventListener } from "@vueuse/core";
-import { type CSSProperties } from "tslx";
+import type { CSSProperties } from "tslx";
 import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, useElement } from "@hoci/shared";
 
 export const affixProps = defineHookProps(
@@ -71,7 +71,7 @@ export const useAffix = defineHookComponent({
     const placeholderStyle: Ref<CSSProperties> = ref({});
     const fixedStyle: Ref<CSSProperties> = ref({});
 
-    const classNames = computed(() => {
+    const className = computed(() => {
       return isFixed.value ? props.fixedClass : "";
     });
 
@@ -149,7 +149,7 @@ export const useAffix = defineHookComponent({
     watchPostEffect(updatePosition);
 
     return {
-      classNames,
+      className,
       wrapperRef,
       containerRef,
       isFixed,
@@ -164,4 +164,3 @@ export const useAffix = defineHookComponent({
 export function provideAffixTarget(target: MaybeRefOrGetter<Element | null | undefined>) {
   provide(AFFIX_TARGET_KEY, target);
 }
-

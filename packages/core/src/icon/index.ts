@@ -1,6 +1,7 @@
 import { computed } from "vue";
 import type { CSSProperties, PropType } from "vue";
-import { defineHookComponent, defineHookProps } from "@hoci/shared";
+import { defineHookComponent, defineHookProps, useSharedConfig } from "@hoci/shared";
+import { unit_f } from "tslx";
 
 export const iconProps = defineHookProps({
   src: {
@@ -8,8 +9,7 @@ export const iconProps = defineHookProps({
     required: true
   },
   size: {
-    type: [Number, String],
-    default: "1rem"
+    type: [Number, String]
   },
   width: {
     type: [Number, String]
@@ -18,7 +18,8 @@ export const iconProps = defineHookProps({
     type: [Number, String]
   },
   color: {
-    type: String
+    type: String,
+    default: "currentColor"
   },
   mask: {
     type: [Boolean, String] as PropType<boolean | "auto">,
@@ -31,38 +32,50 @@ export type HiIconProps = typeof iconProps;
 export const useIcon = defineHookComponent({
   props: iconProps,
   setup(props, context) {
-    const style = computed((): CSSProperties => {
-      const icon = props.src;
-      const propSize = props.size ?? "16px";
-      const size = typeof propSize === "number" ? `${propSize}px` : propSize;
-      const propWidth = props.width ?? size;
-      const width = typeof propWidth === "number" ? `${propWidth}px` : propWidth;
-      const propHeight = props.height ?? size;
-      const height = typeof propHeight === "number" ? `${propHeight}px` : propHeight;
-      const color = props.color ?? "currentColor";
-      const mask = props.mask === "auto" ? icon.endsWith(".svg") : props.mask;
+    const sharedConfig = useSharedConfig("icon");
+
+    const sizeStyle = computed(() => {
+      const s = props.size ?? sharedConfig.size;
+      const size = s ? unit_f(s, sharedConfig.sizeUnit) : undefined;
+      const w = props.width ?? size;
+      const h = props.height ?? size;
+      const width = w ? unit_f(w, sharedConfig.sizeUnit) : undefined;
+      const height = h ? unit_f(h, sharedConfig.sizeUnit) : undefined;
+      return {
+        width,
+        height
+      };
+    });
+
+    const dynamicStyle = computed(() => {
+      const mask = props.mask === "auto" ? props.src.endsWith(".svg") : props.mask;
       if (!mask) {
         return {
-          "--icon-url": `url('${icon}')`,
           "background-image": "var(--icon-url)",
-          "background-size": "100% 100%",
-          "height": height,
-          "width": width,
-          "display": "inline-block",
-          ...(context.attrs.style ?? {})
+          "background-size": "100% 100%"
         };
       }
-
       return {
-        "--icon-url": `url('${icon}')`,
         "mask": "var(--icon-url) no-repeat",
         "mask-size": "100% 100%",
         "-webkit-mask": "var(--icon-url) no-repeat",
         "-webkit-mask-size": "100% 100%",
-        "background-color": color,
-        "display": "inline-block",
-        "width": width,
-        "height": height,
+        "background-color": props.color
+      };
+    });
+
+    const staticStyle = computed(() => {
+      return {
+        "--icon-url": `url('${props.src}')`
+      };
+    });
+
+
+    const style = computed((): CSSProperties => {
+      return {
+        ...staticStyle.value,
+        ...dynamicStyle.value,
+        ...sizeStyle.value,
         ...(context.attrs.style ?? {})
       };
     });
@@ -72,4 +85,3 @@ export const useIcon = defineHookComponent({
     };
   }
 });
-

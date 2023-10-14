@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, reactive, ref } from "vue";
-import { HiAffix, HiIcon, HiItem, HiSelection, HiSwitch } from "hoci";
+import { HiAffix, HiIcon, HiItem, HiSelection, HiSwitch, provideSharedConfig } from "hoci";
 import hociSvg from "./assets/hoci.svg";
 
 export default defineComponent(() => {
@@ -33,9 +33,18 @@ export default defineComponent(() => {
     logs.value.length = 0;
   }
 
+  provideSharedConfig({
+    icon: {
+      size: 96
+    }
+  });
+
+
+
   return () => {
     return <div class="w-full p-4">
-      <HiIcon class="text-green rounded" width={48} height={48} src={hociSvg}/>
+      <HiIcon class="text-green rounded w-12 h-12" src={hociSvg}/>
+      <HiIcon size={0} class="text-green rounded w-12 h-12" src={hociSvg}/>
 
       <HiAffix class="my-1" as="div" offset={30}>
         <div class="inline-block  p-4 bg-blue-200" >
@@ -43,7 +52,6 @@ export default defineComponent(() => {
         </div>
       </HiAffix>
       <HiSelection {...selectionState}
-        activateEvent="click"
         onChange={handleChange}
         v-model={selectedIndex.value}
         as="div"

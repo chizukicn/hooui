@@ -12,6 +12,7 @@ import {
   defineHookEmits,
   defineHookProps,
   labelPropType,
+  useSharedConfig,
   valuePropType
 } from "@hoci/shared";
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
@@ -91,15 +92,12 @@ export const selectionProps = defineHookProps({
     default: () => null
   },
   activateEvent: {
-    type: String as PropType<ActivateEvent>,
-    default: () => "click"
+    type: String as PropType<ActivateEvent>
   }
 });
 
 
 export type SelectionProps = typeof selectionProps;
-
-
 
 export const selectionEmits = defineHookEmits([
   "update:modelValue",
@@ -110,7 +108,9 @@ export const selectionEmits = defineHookEmits([
 
 const HiSelectionContextSymbol: InjectionKey<HiSelectionContext> = Symbol("[hi-selection]context");
 
+
 export function useSelectionContext() {
+  const sharedConfig = useSharedConfig();
   return inject(HiSelectionContextSymbol, {
     isActive: () => false,
     changeActive: () => {},
@@ -118,7 +118,7 @@ export function useSelectionContext() {
     unactiveClass: "unactive",
     disabledClass: "disabled",
     itemClass: "",
-    activateEvent: "click",
+    activateEvent: sharedConfig.activateEvent,
     label: null,
     multiple: false
   });
@@ -212,6 +212,8 @@ export const useSelectionList = defineHookComponent({
     };
 
 
+    const sharedConfig = useSharedConfig();
+
     provide(HiSelectionContextSymbol, toReactive({
       activeClass: computed(() => cls(props.activeClass)),
       unactiveClass: computed(() => cls(props.unactiveClass)),
@@ -221,7 +223,7 @@ export const useSelectionList = defineHookComponent({
       multiple: computed(() => props.multiple),
       clearable: computed(() => props.clearable),
       defaultValue: computed(() => props.defaultValue),
-      activateEvent: computed(() => props.activateEvent),
+      activateEvent: computed(() => props.activateEvent ?? sharedConfig.activateEvent),
       active: currentValue,
       changeActive,
       isActive,

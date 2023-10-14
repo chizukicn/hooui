@@ -27,7 +27,8 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@vueuse/core": "^10.4.1",
-    "maybe-types": "^0.0.3"
+    "@vueuse/core": "^10.5.0",
+    "defu": "^6.1.2",
+    "maybe-types": "^0.1.0"
   }
 }

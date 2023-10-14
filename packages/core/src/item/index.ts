@@ -96,7 +96,7 @@ export const useSelectionItem = defineHookComponent({
       return cls(array);
     });
 
-    const activateEvent = computed(() => context.activateEvent);
+    const activateEvent = computed(() => props.activateEvent ?? context.activateEvent);
 
     return {
       activate,
