@@ -19,7 +19,7 @@ export const DEFAULT_SHARED_CONFIG: SharedConfig = {
     size: undefined,
     sizeUnit: "px"
   },
-  activateEvent: "dblclick"
+  activateEvent: "click"
 };
 
 export function provideSharedConfig(config: PartialDeep<SharedConfig>) {
