@@ -2,7 +2,8 @@ import { defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
   entries: [
-    "index"
+    "index",
+    "resolver"
   ],
   clean: true,
   declaration: true,

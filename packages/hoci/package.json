@@ -10,6 +10,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "require": "./dist/resolver.cjs",
+      "import": "./dist/resolver.mjs"
+    },
     "./*": "./dist/*"
   },
   "main": "dist/index.cjs",
@@ -22,6 +27,9 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "prepublish": "pnpm build"
+  },
+  "peerDependencies": {
+    "unplugin-vue-components": "^0.25.2"
   },
   "dependencies": {
     "@hoci/components": "workspace:*",

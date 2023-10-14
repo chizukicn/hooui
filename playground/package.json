@@ -21,6 +21,7 @@
     "sass": "^1.69.3",
     "typescript": "^5.2.2",
     "unocss": "^0.56.5",
+    "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.11"
   }
 }

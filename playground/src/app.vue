@@ -35,7 +35,8 @@ export default defineComponent(() => {
 
   provideSharedConfig({
     icon: {
-      size: 96
+      size: 96,
+      sizeUnit: "px"
     }
   });
 
@@ -43,7 +44,7 @@ export default defineComponent(() => {
 
   return () => {
     return <div class="w-full p-4">
-      <HiIcon class="text-green rounded w-12 h-12" src={hociSvg}/>
+      <hi-icon class="text-green rounded w-12 h-12" src={hociSvg}/>
       <HiIcon size={0} class="text-green rounded w-12 h-12" src={hociSvg}/>
 
       <HiAffix class="my-1" as="div" offset={30}>
