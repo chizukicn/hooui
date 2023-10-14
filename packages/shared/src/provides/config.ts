@@ -1,9 +1,10 @@
 import type { InjectionKey } from "vue";
 import { inject, provide } from "vue";
 import defu from "defu";
+import type { PartialDeep } from "type-fest";
 import type { ActivateEvent } from "../types";
 
-const SHARED_CONFIG_KEY: InjectionKey<Partial<SharedConfig>> = Symbol("SharedConfig");
+const SHARED_CONFIG_KEY: InjectionKey<PartialDeep<SharedConfig>> = Symbol("SharedConfig");
 
 export interface SharedConfig {
   icon: {
@@ -21,7 +22,7 @@ export const DEFAULT_SHARED_CONFIG: SharedConfig = {
   activateEvent: "dblclick"
 };
 
-export function provideSharedConfig(config: Partial<SharedConfig>) {
+export function provideSharedConfig(config: PartialDeep<SharedConfig>) {
   provide(SHARED_CONFIG_KEY, config);
 }
 

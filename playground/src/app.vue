@@ -35,8 +35,7 @@ export default defineComponent(() => {
 
   provideSharedConfig({
     icon: {
-      size: 96,
-      sizeUnit: "px"
+      size: 96
     }
   });
 

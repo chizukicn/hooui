@@ -29,6 +29,7 @@
   "dependencies": {
     "@vueuse/core": "^10.5.0",
     "defu": "^6.1.2",
-    "maybe-types": "^0.1.0"
+    "maybe-types": "^0.1.0",
+    "type-fest": "^4.4.0"
   }
 }
