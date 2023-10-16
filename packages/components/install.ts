@@ -6,3 +6,4 @@ export const install = (app: App) => {
     app.component(key, components[key as keyof typeof components]);
   }
 };
+
