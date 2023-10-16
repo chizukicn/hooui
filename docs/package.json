@@ -7,8 +7,13 @@
     "dev": "vitepress dev",
     "build": "vitepress build"
   },
+  "dependencies": {
+    "hoci": "workspace:*"
+  },
   "devDependencies": {
     "unocss": "^0.56.5",
-    "vitepress": "^1.0.0-rc.22"
+    "unplugin-vue-components": "^0.25.2",
+    "vitepress": "^1.0.0-rc.22",
+    "vitepress-theme-demoblock": "^3.0.3"
   }
 }
