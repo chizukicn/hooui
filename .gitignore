@@ -30,7 +30,7 @@ dist
 .output
 
 # Vitepress
-.vitepress/cache
+**/.vitepress/cache
 
 
 # Env
