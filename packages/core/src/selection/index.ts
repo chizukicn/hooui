@@ -4,7 +4,8 @@ import {
   computed,
   inject,
   provide,
-  reactive
+  reactive,
+  renderSlot
 } from "vue";
 import {
   classPropType,
@@ -127,7 +128,7 @@ export function useSelectionContext() {
 export const useSelectionList = defineHookComponent({
   props: selectionProps,
   emits: selectionEmits,
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const options = reactive<Option[]>([]);
 
     function toArray(value?: any | any[]): any[] {
@@ -231,19 +232,30 @@ export const useSelectionList = defineHookComponent({
     }));
 
 
-    function renderItem() {
+    const renderItem = () => {
       const children = options
         .filter((e) => actives.includes(e.value))
         .map((e) => e.render());
       return props.multiple ? children : children[0];
-    }
+    };
+
+    const slotData: HiSelectionSlotData = {
+      isActive,
+      changeActive,
+      renderItem
+    };
+
+    const render = () => {
+      return renderSlot(slots, "default", slotData);
+    };
 
     return {
       options,
       actives,
       isActive,
       changeActive,
-      renderItem
+      renderItem,
+      render
     };
   }
 });
