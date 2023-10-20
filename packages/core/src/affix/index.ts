@@ -63,7 +63,7 @@ export const useAffix = defineHookComponent({
   setup(props, { emit }) {
     const wrapperRef = ref<HTMLElement | null>(null);
 
-    const parentRef = inject(AFFIX_TARGET_KEY, undefined);
+    const parentRef = inject(AFFIX_TARGET_KEY, null);
 
     const targetRef = useElement(props.target, parentRef);
 
@@ -163,4 +163,10 @@ export const useAffix = defineHookComponent({
 
 export function provideAffixTarget(target: MaybeRefOrGetter<Element | null | undefined>) {
   provide(AFFIX_TARGET_KEY, target);
+}
+
+export function useAffixTargetProvider<E extends Element = Element>() {
+  const targetRef = ref<E | null>(null);
+  provideAffixTarget(targetRef);
+  return targetRef;
 }
