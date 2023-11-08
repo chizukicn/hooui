@@ -18,8 +18,10 @@ export const affixProps = defineHookProps(
       type: Number,
       default: 0
     },
-
-    offsetType: {
+    /**
+     * @zh 固定的相对方向
+     */
+    position: {
       type: String as PropType<"top" | "bottom">,
       default: "top"
     },
@@ -100,7 +102,7 @@ export const useAffix = defineHookComponent({
 
       const offset = props.offset;
 
-      if (props.offsetType === "top") {
+      if (props.position === "top") {
         newIsFixed = (wrapperRect.top - targetRect.top < offset) && offset >= 0;
         newFixedStyles = newIsFixed
           ? {
