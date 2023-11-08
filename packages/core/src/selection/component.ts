@@ -1,5 +1,4 @@
-import { defineComponent, h, renderSlot } from "vue";
-import type { HiSelectionSlotData } from "@hoci/core";
+import { defineComponent, h } from "vue";
 import { selectionEmits, selectionProps, useSelectionList } from "@hoci/core";
 
 export const HiSelection = defineComponent({
@@ -13,15 +12,8 @@ export const HiSelection = defineComponent({
   },
   emits: selectionEmits,
   setup(props, context) {
-    const { isActive, changeActive, renderItem } = useSelectionList(props, context);
-    const { slots } = context;
+    const { render } = useSelectionList(props, context);
 
-    const slotData: HiSelectionSlotData = {
-      isActive,
-      changeActive,
-      renderItem
-    };
-
-    return () => h(props.as, {}, renderSlot(slots, "default", slotData));
+    return () => h(props.as, {}, render());
   }
 });

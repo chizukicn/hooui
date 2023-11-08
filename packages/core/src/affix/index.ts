@@ -1,6 +1,6 @@
 import { computed, inject, provide, ref, watchPostEffect } from "vue";
 import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
-import { useElementVisibility, useEventListener } from "@vueuse/core";
+import { toReactive, useElementBounding, useElementVisibility, useEventListener } from "@vueuse/core";
 import type { CSSProperties } from "tslx";
 import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, useElement } from "@hoci/shared";
 
@@ -63,6 +63,8 @@ export const useAffix = defineHookComponent({
   setup(props, { emit }) {
     const wrapperRef = ref<HTMLElement | null>(null);
 
+    const wrapperRect = toReactive(useElementBounding(wrapperRef));
+
     const parentRef = inject(AFFIX_TARGET_KEY, undefined);
 
     const targetRef = useElement(props.target, parentRef);
@@ -88,14 +90,12 @@ export const useAffix = defineHookComponent({
       if (!wrapperRef.value || !containerRef.value) {
         return;
       }
-
-      const wrapperRect = wrapperRef.value.getBoundingClientRect();
       const targetRect = getTargetRect(containerRef.value);
       let newIsFixed = false;
       let newFixedStyles = {};
       const newPlaceholderStyles: CSSProperties = {
-        width: `${wrapperRef.value.offsetWidth}px`,
-        height: `${wrapperRef.value.offsetHeight}px`
+        width: `${wrapperRect.width}px`,
+        height: `${wrapperRect.height}px`
       };
 
       const offset = props.offset;
