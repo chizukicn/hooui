@@ -8,20 +8,15 @@ export function useElement<E extends Element = HTMLElement>(elementSelector: May
   const defaultRef = toRef(defaultValue);
   const isMounted = useMounted();
 
-
   const el = computed(() => {
     const selector = selectorRef.value;
-    if (selector) {
-      if (typeof selector === "string") {
-        if (isMounted.value) {
-          return document.querySelector<E>(selector) ?? null;
-        }
-        return null;
+    if (typeof selector === "string") {
+      if (isMounted.value) {
+        return document.querySelector<E>(selector) ?? null;
       }
-
-      return selector as E;
+      return null;
     }
-    return null;
+    return selector as E;
   });
 
   return computed(() => el.value ?? defaultRef.value);
