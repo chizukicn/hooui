@@ -3,7 +3,7 @@ import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
 import { toReactive, useElementBounding, useElementVisibility, useEventListener } from "@vueuse/core";
 import type { CSSProperties } from "tslx";
 import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, useElement } from "@hoci/shared";
-
+import { px } from "tslx";
 export const affixProps = defineHookProps(
   {
     fixedClass: {
@@ -96,8 +96,8 @@ export const useAffix = defineHookComponent({
       let newIsFixed = false;
       let newFixedStyles = {};
       const newPlaceholderStyles: CSSProperties = {
-        width: `${wrapperRect.width}px`,
-        height: `${wrapperRect.height}px`
+        width: px(wrapperRect.width),
+        height: px(wrapperRect.height)
       };
 
       const offset = props.offset;
@@ -108,17 +108,15 @@ export const useAffix = defineHookComponent({
           ? {
               position: "fixed",
               zIndex: props.zIndex,
-              top: `${targetRect.top + (offset || 0)}px`
+              top: px(targetRect.top + offset)
             }
           : {};
       } else {
-        newIsFixed = targetRect.bottom - wrapperRect.bottom < (offset || 0);
+        newIsFixed = (targetRect.bottom - wrapperRect.bottom) < offset;
         newFixedStyles = newIsFixed
           ? {
               position: "fixed",
-              bottom: `${
-                window.innerHeight - targetRect.bottom + (offset || 0)
-              }px`
+              bottom: px(window.innerHeight - targetRect.bottom + offset)
             }
           : {};
       }
