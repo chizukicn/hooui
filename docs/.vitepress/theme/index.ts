@@ -2,12 +2,9 @@ import "uno.css";
 // https://vitepress.dev/guide/custom-theme
 import { watch } from "vue";
 import Theme from "vitepress/theme";
-import "vitepress-theme-demoblock/dist/theme/styles/index.css";
-import { useComponents } from "./demoblock";
+import DemoBlock from "../components/demo-block";
 
-import "./rainbow.css";
-import "./vars.css";
-import "./overrides.css";
+import "./style.css";
 
 let homePageStyle: HTMLStyleElement | undefined;
 
@@ -18,12 +15,12 @@ export default {
       return;
     };
 
+    app.component("Demo", DemoBlock);
     watch(
       () => router.route.data.relativePath,
       () => updateHomePageStyle(location.pathname === "/"),
       { immediate: true }
     );
-    useComponents(app);
   }
 };
 

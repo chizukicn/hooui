@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 import type { DefaultTheme } from "vitepress/types/default-theme";
-import { demoBlockPlugin, demoblockVitePlugin } from "vitepress-theme-demoblock";
+import { applyPlugins } from "./plugins/code";
 
 const guideSidebar = (): DefaultTheme.SidebarItem[] => {
   return [
@@ -14,6 +14,10 @@ const guideSidebar = (): DefaultTheme.SidebarItem[] => {
 const componentSidebar = (): DefaultTheme.SidebarItem[] => {
   return [
     {
+      text: "Affix (固钉)",
+      link: "affix"
+    },
+    {
       text: "Selection (选择器)",
       link: "selection"
     }
@@ -26,13 +30,8 @@ export default defineConfig({
   description: "a headless components library for vue3",
   markdown: {
     config: (md) => {
-      md.use(demoBlockPlugin);
+      applyPlugins(md);
     }
-  },
-  vite: {
-    plugins: [
-      demoblockVitePlugin()
-    ]
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

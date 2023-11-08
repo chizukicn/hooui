@@ -1,10 +1,6 @@
-# Selection (选择器)
-
 ## Basic Usage (基本使用)
-<demo src="../examples/selection/basic.vue"/>
+<demo src="../examples/affix/basic.vue"/>
 
-## Use Slots (使用插槽)
-<demo src="../examples/selection/slots.vue"/>
 
 ## Selection Props (参数)
 | Name | Type | Default | Description |
@@ -32,5 +28,4 @@
 | value | `any` | `undefined` | 元素对应的值 |
 | active-event | `ActiveEvent` | `click` | 触发选中的事件 |
 | disabled | `boolean` | `false` | 是否禁用 |
-
 

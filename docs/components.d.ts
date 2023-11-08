@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    HiAffix: typeof import('hoci')['HiAffix']
     HiItem: typeof import('hoci')['HiItem']
     HiSelection: typeof import('hoci')['HiSelection']
   }

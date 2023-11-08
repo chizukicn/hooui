@@ -11,6 +11,8 @@
     "hoci": "workspace:*"
   },
   "devDependencies": {
+    "@iconify-json/carbon": "^1.1.21",
+    "scss": "^0.2.4",
     "unocss": "^0.56.5",
     "unplugin-vue-components": "^0.25.2",
     "vitepress": "^1.0.0-rc.22",
