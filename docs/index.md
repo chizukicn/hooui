@@ -10,9 +10,6 @@ hero:
     - theme: brand
       text: 快速开始
       link: /guide/quickstart
-    - theme: alt
-      text: API Examples
-      link: /api-examples
 
 features:
   - title: Feature A
