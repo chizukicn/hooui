@@ -29,6 +29,10 @@ dist
 .cache
 .output
 
+# Vitepress
+**/.vitepress/cache
+
+
 # Env
 .env
 

@@ -30,7 +30,9 @@
     "prepare": "npx simple-git-hooks",
     "prepublish": "pnpm build",
     "up": "taze -r major",
-    "regit": "git fetch --all && git reset --hard origin/main && git pull && git remote prune origin"
+    "regit": "git fetch --all && git reset --hard origin/main && git pull && git remote prune origin",
+    "docs": "pnpm -C docs dev",
+    "build:docs": "pnpm -C docs build"
   },
   "devDependencies": {
     "@curev/eslint-config": "^0.2.1",
@@ -44,6 +46,7 @@
     "taze": "^0.11.3",
     "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
+    "vitepress": "1.0.0-rc.22",
     "vitest": "^0.34.6"
   },
   "simple-git-hooks": {
