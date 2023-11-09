@@ -24,6 +24,7 @@
     "typecheck": "tsc --noEmit --skipLibCheck",
     "dev": "vite playground",
     "play": "vite playground",
+    "build:play": "vite build playground",
     "bump": "bumpp package.json packages/*/package.json --commit --push --tag",
     "pub": "pnpm build && pnpm -r publish --access public --no-git-checks --registry https://registry.npmjs.org/",
     "preinstall": "npx only-allow pnpm",
@@ -32,7 +33,8 @@
     "up": "taze -r major",
     "regit": "git fetch --all && git reset --hard origin/main && git pull && git remote prune origin",
     "docs": "pnpm -C docs dev",
-    "build:docs": "pnpm -C docs build"
+    "build:docs": "pnpm -C docs build",
+    "deploy": "pnpm build && pnpm build:docs"
   },
   "devDependencies": {
     "@curev/eslint-config": "^0.2.1",
