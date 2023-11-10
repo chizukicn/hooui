@@ -1,7 +1,13 @@
 <script lang="tsx">
 import { defineComponent, reactive, ref } from "vue";
-import { HiAffix, HiConfigProvider, HiIcon, HiItem, HiSelection, HiSwitch } from "hoci";
+import { HiAffix, HiConfigProvider, HiIcon, HiItem, HiSelection, HiSwitch, HiTabPane, HiTabs } from "hoci";
 import hociSvg from "./assets/hoci.svg";
+
+const Tab1 = defineComponent(() => {
+  return () => <div class="p-4">
+    <HiSwitch as="span" class="cursor-pointer duration-200 select-none" activeClass="text-hex-f00">Tab 1</HiSwitch>
+  </div>;
+});
 
 export default defineComponent(() => {
   const selectedIndex = ref<number[] | number>(2);
@@ -39,6 +45,18 @@ export default defineComponent(() => {
       <HiConfigProvider icon={{ size: 96 }}>
         <hi-icon class="text-green rounded w-12 h-12" src={hociSvg}/>
         <HiIcon size={0} class="text-green rounded w-12 h-12" src={hociSvg}/>
+        <HiTabs
+          headerClass="flex space-x-3"
+          itemClass="b-1 b-solid px-2 b-gray-3 rounded cursor-pointer"
+          activeClass="b-transparent bg-blue-3 text-white"
+          v-model={selectedIndex.value} class="mt-12">
+          <HiTabPane value={1} label="tab1">
+            <Tab1/>
+          </HiTabPane>
+          <HiTabPane value={2} label="tab2">
+            这是Tab 2
+          </HiTabPane>
+        </HiTabs>
         <HiAffix class="my-1" as="div" offset={30}>
           <div class="inline-block  p-4 bg-blue-200" >
           Offset Top 30px

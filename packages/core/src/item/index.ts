@@ -47,16 +47,20 @@ export const useSelectionItem = defineHookComponent({
       context.changeActive(props.value);
     };
 
+    const label = computed(() => {
+      let label = props.label ?? context.label;
+      if (label && typeof label == "function") {
+        label = label(props.value)!;
+      }
+      return Array.isArray(label) ? label : [label];
+    });
+
     function render() {
       return renderSlot(slots, "default", {
         active: context.isActive(props.value),
         activate
       }, () => {
-        let label = props.label ?? context.label;
-        if (label && typeof label == "function") {
-          label = label(props.value)!;
-        }
-        return Array.isArray(label) ? label : [label];
+        return label.value;
       });
     }
 
@@ -104,7 +108,8 @@ export const useSelectionItem = defineHookComponent({
       isActive,
       isDisabled,
       className,
-      activateEvent
+      activateEvent,
+      label
     };
   }
 });

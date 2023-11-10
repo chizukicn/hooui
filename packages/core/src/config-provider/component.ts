@@ -5,10 +5,10 @@ import { provideSharedConfig } from "@hoci/core";
 export const HiConfigProvider = defineComponent({
   props: {
     icon: {
-      type: Object as PropType<SharedConfig["icon"]>
+      type: Object as PropType<Partial<SharedConfig["icon"]>>
     },
     activateEvent: {
-      type: String as PropType<SharedConfig["activateEvent"]>
+      type: String as PropType<Partial<SharedConfig["activateEvent"]>>
     }
   },
   setup(props, context) {
