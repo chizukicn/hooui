@@ -78,6 +78,9 @@ importers:
       '@hoci/core':
         specifier: workspace:*
         version: link:../core
+      '@hoci/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@vueuse/core':
         specifier: ^10.5.0
         version: 10.5.0(vue@3.3.4)

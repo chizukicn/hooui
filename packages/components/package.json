@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@hoci/core": "workspace:*",
+    "@hoci/shared": "workspace:*",
     "@vueuse/core": "^10.5.0",
     "maybe-types": "^0.1.0",
     "tslx": "^0.1.1"

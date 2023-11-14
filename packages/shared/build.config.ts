@@ -9,9 +9,6 @@ export default defineBuildConfig({
     emitCJS: true,
     dts: {
       respectExternal: false
-    },
-    esbuild: {
-      target: "es2015"
     }
   }
 });
