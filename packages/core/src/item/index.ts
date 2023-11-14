@@ -1,9 +1,9 @@
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
 import { defineHookComponent, defineHookProps, valuePropType } from "@hoci/shared";
 import type { PropType } from "vue";
-import { computed, renderSlot, watch } from "vue";
+import { computed, watch } from "vue";
 import { tryOnScopeDispose } from "@vueuse/core";
-import { cls } from "tslx";
+import { cls, renderSlot } from "tslx";
 import { useSelectionContext } from "../selection";
 
 export const itemProps = defineHookProps({
@@ -61,7 +61,7 @@ export const useSelectionItem = defineHookComponent({
         activate
       }, () => {
         return label.value;
-      });
+      }) as ElementLike[];
     }
 
     let remove = () => {};

@@ -1,6 +1,6 @@
-import { defineComponent, h, renderSlot } from "vue";
+import { defineComponent, h } from "vue";
 import { switchEmits, switchProps, useSwitch } from "@hoci/core";
-import { capitalize } from "tslx";
+import { capitalize, renderSlot } from "tslx";
 
 export const HiSwitch = defineComponent({
   name: "HiSwitch",

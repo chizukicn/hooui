@@ -1,6 +1,8 @@
-import { createApp } from "vue";
+import Vue from "vue";
 import "uno.css";
 import App from "./app.vue";
 
-createApp(App)
-  .mount("#app");
+
+new Vue({
+  render: h => h(App)
+}).$mount("#app");

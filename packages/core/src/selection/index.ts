@@ -1,11 +1,10 @@
-import { isDefined, syncRef, toReactive } from "@vueuse/core";
+import { isDefined, syncRef } from "@vueuse/core";
 import type { InjectionKey, PropType } from "vue";
 import {
   computed,
   inject,
   provide,
-  reactive,
-  renderSlot
+  reactive
 } from "vue";
 import {
   classPropType,
@@ -17,7 +16,7 @@ import {
   valuePropType
 } from "@hoci/shared";
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
-import { cls } from "tslx";
+import { cls, renderSlot } from "tslx";
 
 
 export type InitFunction = (option: Option) => () => void;
@@ -215,7 +214,7 @@ export const useSelectionList = defineHookComponent({
 
     const sharedConfig = useSharedConfig();
 
-    provide(HiSelectionContextSymbol, toReactive({
+    provide(HiSelectionContextSymbol, {
       activeClass: computed(() => cls(props.activeClass)),
       unactiveClass: computed(() => cls(props.unactiveClass)),
       disabledClass: computed(() => cls(props.disabledClass)),
@@ -229,7 +228,7 @@ export const useSelectionList = defineHookComponent({
       changeActive,
       isActive,
       init
-    }));
+    });
 
 
     const renderItem = () => {

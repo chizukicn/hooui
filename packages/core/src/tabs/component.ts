@@ -1,6 +1,7 @@
-import { defineComponent, h, renderSlot } from "vue";
+import { defineComponent, h } from "vue";
+import { renderSlot } from "tslx";
 import { classPropType } from "@hoci/shared";
-import { selectionProps, useSelectionList } from "../selection";
+import { selectionEmits, selectionProps, useSelectionList } from "../selection";
 
 export const HiTabs = defineComponent({
   props: {
@@ -24,6 +25,7 @@ export const HiTabs = defineComponent({
       default: "div"
     }
   },
+  emits: selectionEmits,
   setup(props, context) {
     const selection = useSelectionList(props, context);
 
