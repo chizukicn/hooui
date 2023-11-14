@@ -1,7 +1,7 @@
 import { computed } from "vue";
 import type { CSSProperties, PropType } from "vue";
 import { defineHookComponent, defineHookProps, useSharedConfig } from "@hoci/shared";
-import { unit_f } from "tslx";
+import { createUnitFormat } from "tslx";
 
 export const iconProps = defineHookProps({
   src: {
@@ -34,20 +34,21 @@ export const useIcon = defineHookComponent({
   setup(props, context) {
     const sharedConfig = useSharedConfig("icon");
 
-    const sizeStyle = computed(() => {
+    const sizeStyle = computed<CSSProperties>(() => {
       const s = props.size ?? sharedConfig.size;
-      const size = s ? unit_f(s, sharedConfig.sizeUnit) : undefined;
+      const unit = createUnitFormat(sharedConfig.sizeUnit ?? "px");
+      const size = s ? unit(s) : undefined;
       const w = props.width ?? size;
       const h = props.height ?? size;
-      const width = w ? unit_f(w, sharedConfig.sizeUnit) : undefined;
-      const height = h ? unit_f(h, sharedConfig.sizeUnit) : undefined;
+      const width = w ? unit(w) : undefined;
+      const height = h ? unit(h) : undefined;
       return {
         width,
         height
       };
     });
 
-    const dynamicStyle = computed(() => {
+    const dynamicStyle = computed<CSSProperties>(() => {
       const mask = props.mask === "auto" ? props.src.endsWith(".svg") : props.mask;
       if (!mask) {
         return {
@@ -64,14 +65,14 @@ export const useIcon = defineHookComponent({
       };
     });
 
-    const staticStyle = computed(() => {
+    const staticStyle = computed<CSSProperties>(() => {
       return {
         "--icon-url": `url('${props.src}')`
       };
     });
 
 
-    const style = computed((): CSSProperties => {
+    const style = computed<CSSProperties>(() => {
       return {
         ...staticStyle.value,
         ...dynamicStyle.value,
