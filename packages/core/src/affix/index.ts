@@ -93,13 +93,18 @@ export const useAffix = defineHookComponent({
       if (!wrapperRef.value || !containerRef.value) {
         return;
       }
-      const targetRect = getTargetRect(containerRef.value);
-      let newIsFixed = false;
-      let newFixedStyles = {};
+      const area = wrapperRect.width * wrapperRect.height;
+      if (area === 0) {
+        return;
+      }
       const newPlaceholderStyles: CSSProperties = {
         width: px(wrapperRect.width),
         height: px(wrapperRect.height)
       };
+
+      const targetRect = getTargetRect(containerRef.value);
+      let newIsFixed = false;
+      let newFixedStyles = {};
 
       const offset = props.offset;
 
