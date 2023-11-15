@@ -1,11 +1,10 @@
 import { isDefined, syncRef } from "@vueuse/core";
-import type { InjectionKey, PropType } from "vue";
+import { type InjectionKey, type PropType, type Ref, ref } from "vue-demi";
 import {
   computed,
   inject,
-  provide,
-  reactive
-} from "vue";
+  provide
+} from "vue-demi";
 import {
   classPropType,
   defineHookComponent,
@@ -33,13 +32,15 @@ export interface HiSelectionContext {
   changeActive: (_: any) => void
   isActive: (_: any) => boolean
   init?: InitFunction
-  activateEvent: ActivateEvent
-  activeClass: string
-  itemClass: string
-  unactiveClass: string
-  disabledClass: string
-  label: string | ((_: any) => ElementLike | null | undefined) | null | undefined
-  multiple: boolean | number
+  activateEvent: Ref<ActivateEvent>
+  activeClass: Ref<string>
+  itemClass: Ref<string>
+  unactiveClass: Ref<string>
+  disabledClass: Ref<string>
+  label: Ref<string | ((_: any) => ElementLike | null | undefined) | null | undefined>
+  multiple: Ref<boolean | number>
+  clearable: Ref<boolean>
+  defaultValue: Ref<any | null | undefined>
 }
 
 export const selectionProps = defineHookProps({
@@ -114,13 +115,15 @@ export function useSelectionContext() {
   return inject(HiSelectionContextSymbol, {
     isActive: () => false,
     changeActive: () => {},
-    activeClass: "active",
-    unactiveClass: "unactive",
-    disabledClass: "disabled",
-    itemClass: "",
-    activateEvent: sharedConfig.activateEvent,
-    label: null,
-    multiple: false
+    activeClass: ref(""),
+    unactiveClass: ref(""),
+    disabledClass: ref(""),
+    itemClass: ref(""),
+    activateEvent: ref(sharedConfig.activateEvent),
+    label: ref(null),
+    multiple: ref(false),
+    clearable: ref(false),
+    defaultValue: ref(null)
   });
 }
 
@@ -128,7 +131,7 @@ export const useSelectionList = defineHookComponent({
   props: selectionProps,
   emits: selectionEmits,
   setup(props, { emit, slots }) {
-    const options = reactive<Option[]>([]);
+    const options = ref<Option[]>([]);
 
     function toArray(value?: any | any[]): any[] {
       if (!isDefined(value)) {
@@ -140,16 +143,16 @@ export const useSelectionList = defineHookComponent({
       return [value];
     }
 
-    const actives: any[] = reactive<any[]>([
+    const actives = ref<any[]>([
       ...toArray(props.modelValue ?? props.defaultValue)
     ]);
 
     const currentValue = computed({
       get() {
-        return props.multiple ? actives : actives[0];
+        return props.multiple ? actives : actives.value[0];
       },
       set(val) {
-        actives.splice(0, actives.length, ...toArray(val));
+        actives.value.splice(0, actives.value.length, ...toArray(val));
       }
     });
 
@@ -168,25 +171,25 @@ export const useSelectionList = defineHookComponent({
     const emitChange = () => emit("change", currentValue.value);
 
     function isActive(value: any) {
-      return actives.includes(value);
+      return actives.value.includes(value);
     }
 
     function changeActive(value: any) {
       if (isActive(value)) {
         if (props.multiple || props.clearable) {
-          actives.splice(actives.indexOf(value), 1);
+          actives.value.splice(actives.value.indexOf(value), 1);
           emitChange();
         }
       } else {
         if (props.multiple) {
           const limit
             = typeof props.multiple === "number" ? props.multiple : Number.POSITIVE_INFINITY;
-          if (actives.length < limit) {
-            actives.push(value);
+          if (actives.value.length < limit) {
+            actives.value.push(value);
             emitChange();
           }
         } else {
-          actives.splice(0, actives.length, value);
+          actives.value.splice(0, actives.value.length, value);
           emitChange();
         }
       }
@@ -194,19 +197,19 @@ export const useSelectionList = defineHookComponent({
 
     const init = (option: Option) => {
       function remove() {
-        const index = options.findIndex((e) => e.id === option.id);
+        const index = options.value.findIndex((e) => e.id === option.id);
         if (index > -1) {
-          options.splice(index, 1);
+          options.value.splice(index, 1);
           emit("unload", option);
         }
       }
-      for (let i = 0; i < options.length; i++) {
-        if (options[i].value === option.value) {
-          options.splice(i, 1);
+      for (let i = 0; i < options.value.length; i++) {
+        if (options.value[i].value === option.value) {
+          options.value.splice(i, 1);
           i--;
         }
       }
-      options.push(option);
+      options.value.push(option);
       emit("load", option);
       return remove;
     };
@@ -214,7 +217,7 @@ export const useSelectionList = defineHookComponent({
 
     const sharedConfig = useSharedConfig();
 
-    provide(HiSelectionContextSymbol, {
+    provide(HiSelectionContextSymbol, ({
       activeClass: computed(() => cls(props.activeClass)),
       unactiveClass: computed(() => cls(props.unactiveClass)),
       disabledClass: computed(() => cls(props.disabledClass)),
@@ -224,16 +227,15 @@ export const useSelectionList = defineHookComponent({
       clearable: computed(() => props.clearable),
       defaultValue: computed(() => props.defaultValue),
       activateEvent: computed(() => props.activateEvent ?? sharedConfig.activateEvent),
-      active: currentValue,
       changeActive,
       isActive,
       init
-    });
+    }));
 
 
     const renderItem = () => {
-      const children = options
-        .filter((e) => actives.includes(e.value))
+      const children = options.value
+        .filter((e) => actives.value.includes(e.value))
         .map((e) => e.render());
       return props.multiple ? children : children[0];
     };

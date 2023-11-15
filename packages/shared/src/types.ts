@@ -1,14 +1,35 @@
-import type { MaybeFunction } from "maybe-types";
 import type {
   ComponentPropsOptions,
-  EmitsOptions,
   ExtractDefaultPropTypes,
   ExtractPropTypes,
+  PropType,
   SetupContext
-} from "vue";
+} from "vue-demi";
+export type ObjectEmitsOptions = Record<
+string,
+((...args: any[]) => any) | null
+>;
+
+type DefaultFactory<T> = () => T | null | undefined;
+
+export interface PropOptions<T = any, D = T> {
+  type?: PropType<T> | true | null
+  required?: boolean
+  default?: D | DefaultFactory<D> | null | undefined | object
+  validator?(value: unknown): boolean
+}
+export type Prop<T, D = T> = PropOptions<T, D> | PropType<T>;
+
+export type ComponentObjectPropsOptions<P = Record<string, any>> = {
+  [K in keyof P]: Prop<P[K]> | null
+};
+
+export type EmitsOptions = ObjectEmitsOptions | string[];
+
+
 export interface HookComponentOptions<
   R,
-  E = EmitsOptions,
+  E extends EmitsOptions,
   EE extends string = string,
   P = ComponentPropsOptions,
   D = ExtractPropTypes<P>
@@ -20,12 +41,12 @@ export interface HookComponentOptions<
 
 export type HookComponent<
   R,
-  E = EmitsOptions,
+  E extends EmitsOptions,
   P = ComponentPropsOptions,
   D = ExtractPropTypes<P>,
   Defaults = ExtractDefaultPropTypes<P>
 > = (
-  props: MaybeFunction<Partial<Defaults> & Omit<D, keyof Defaults>>,
+  props: Partial<Defaults> & Omit<D, keyof Defaults>,
   context: SetupContext<E>
 ) => R;
 

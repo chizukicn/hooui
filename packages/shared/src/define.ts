@@ -1,16 +1,12 @@
-import type { MaybeFunction } from "maybe-types";
 import type {
-  ComponentObjectPropsOptions,
   ComponentPropsOptions,
-  EmitsOptions,
   ExtractDefaultPropTypes,
   ExtractPropTypes,
   PropType,
   SetupContext
-} from "vue";
-import { reactiveComputed } from "@vueuse/core";
+} from "vue-demi";
 import { isConstructor, isFunction } from "./utils";
-import type { HookComponent, HookComponentOptions } from "./types";
+import type { ComponentObjectPropsOptions, EmitsOptions, HookComponent, HookComponentOptions } from "./types";
 
 
 
@@ -29,7 +25,7 @@ export function defineHookEmits<
 
 export function defineHookComponent<
   R,
-  E = EmitsOptions,
+  E extends EmitsOptions,
   EE extends string = string,
   P = ComponentPropsOptions,
   D = ExtractPropTypes<P>,
@@ -38,14 +34,14 @@ export function defineHookComponent<
   options: HookComponentOptions<R, E, EE, P, D>
 ): HookComponent<R, E, P, D, Defaults> {
   return (
-    props: MaybeFunction<Partial<Defaults> & Omit<D, keyof Defaults>>,
+    props: Partial<Defaults> & Omit<D, keyof Defaults>,
     context: SetupContext<E>
   ) => {
     const p = withDefaults<P, D, Defaults>(
-      isFunction(props) ? (reactiveComputed(() => props()) as Partial<Defaults> & Omit<D, keyof Defaults>) : props,
+      props,
       options.props!
     );
-    return options.setup(p, context);
+    return options.setup(p, context) as any;
   };
 }
 
@@ -81,10 +77,12 @@ function withDefaults<
       }
       continue;
     }
-    if (isFunction(opt.default)) {
-      newProps[key] = opt.default(props) as D[typeof key];
-    } else if (opt.default !== undefined) {
-      newProps[key] = opt.default as D[typeof key];
+    if ("default" in opt) {
+      if (isFunction(opt.default)) {
+        newProps[key] = opt.default() as D[typeof key];
+      } else if (opt.default !== undefined) {
+        newProps[key] = opt.default as D[typeof key];
+      }
     }
   }
 

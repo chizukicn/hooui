@@ -1,5 +1,5 @@
-import vue from "@vitejs/plugin-vue2";
-import jsx from "@vitejs/plugin-vue2-jsx";
+import vue from "@vitejs/plugin-vue";
+import jsx from "@vitejs/plugin-vue-jsx";
 import components from "unplugin-vue-components/vite";
 import { HociResolver } from "hoci/resolver";
 

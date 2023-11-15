@@ -1,4 +1,4 @@
-import type { PropType } from "vue";
+import type { PropType } from "vue-demi";
 
 export const valuePropType = [
   String,

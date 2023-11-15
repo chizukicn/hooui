@@ -1,5 +1,5 @@
-import type { PropType } from "vue";
-import { computed } from "vue";
+import type { PropType } from "vue-demi";
+import { computed } from "vue-demi";
 import { useVModel } from "@vueuse/core";
 import { cls } from "tslx";
 import {

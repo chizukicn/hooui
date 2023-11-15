@@ -1,7 +1,7 @@
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
 import { defineHookComponent, defineHookProps, valuePropType } from "@hoci/shared";
-import type { PropType } from "vue";
-import { computed, watch } from "vue";
+import type { PropType } from "vue-demi";
+import { computed, watch } from "vue-demi";
 import { tryOnScopeDispose } from "@vueuse/core";
 import { cls, renderSlot } from "tslx";
 import { useSelectionContext } from "../selection";
@@ -21,9 +21,6 @@ export const itemProps = defineHookProps({
   keepAlive: {
     type: Boolean,
     default: () => true
-  },
-  key: {
-    type: [String, Number, Symbol] as PropType<string | number | symbol>
   },
   activateEvent: {
     type: String as PropType<ActivateEvent>
@@ -48,7 +45,7 @@ export const useSelectionItem = defineHookComponent({
     };
 
     const label = computed(() => {
-      let label = props.label ?? context.label;
+      let label = props.label ?? context.label.value;
       if (label && typeof label == "function") {
         label = label(props.value)!;
       }
@@ -91,16 +88,16 @@ export const useSelectionItem = defineHookComponent({
 
 
     const className = computed(() => {
-      const array = [context.itemClass];
+      const array = [context.itemClass.value];
       if (!isDisabled.value) {
-        array.push(context.isActive(props.value) ? context.activeClass : context.unactiveClass);
+        array.push(context.isActive(props.value) ? context.activeClass.value : context.unactiveClass.value);
       } else {
-        array.push(context.disabledClass);
+        array.push(context.disabledClass.value);
       }
       return cls(array);
     });
 
-    const activateEvent = computed(() => props.activateEvent ?? context.activateEvent);
+    const activateEvent = computed(() => props.activateEvent ?? context.activateEvent.value);
 
     return {
       activate,

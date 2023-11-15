@@ -1,7 +1,9 @@
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue-demi";
 import { renderSlot } from "tslx";
 import { affixProps, useAffix } from "@hoci/core";
-export const HiAffix = defineComponent({
+import { h } from "@hoci/shared";
+
+export const HiAffix = /* #__PURE__ */defineComponent({
   name: "HiAffix",
   props: {
     ...affixProps,

@@ -1,5 +1,5 @@
 import { defineHookProps } from "@hoci/shared";
-import type { PropType } from "vue";
+import type { PropType } from "vue-demi";
 
 export const configProviderProps = defineHookProps({
   src: {

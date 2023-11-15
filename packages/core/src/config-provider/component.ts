@@ -1,8 +1,11 @@
-import type { PropType } from "vue";
-import { defineComponent, h } from "vue";
+import type { PropType } from "vue-demi";
+import { defineComponent } from "vue-demi";
 import { renderSlot } from "tslx";
 import type { SharedConfig } from "@hoci/core";
 import { provideSharedConfig } from "@hoci/core";
+import { h } from "@hoci/shared";
+
+
 export const HiConfigProvider = defineComponent({
   props: {
     icon: {

@@ -1,5 +1,5 @@
-import type { InjectionKey } from "vue";
-import { inject, provide } from "vue";
+import type { InjectionKey } from "vue-demi";
+import { inject, provide } from "vue-demi";
 import defu from "defu";
 import type { PartialDeep } from "type-fest";
 import type { ActivateEvent } from "../types";

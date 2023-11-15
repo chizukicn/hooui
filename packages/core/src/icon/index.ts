@@ -1,6 +1,7 @@
-import { computed } from "vue";
-import type { CSSProperties, PropType } from "vue";
+import { computed } from "vue-demi";
+import type { PropType } from "vue-demi";
 import { defineHookComponent, defineHookProps, useSharedConfig } from "@hoci/shared";
+import type { CSSProperties } from "tslx";
 import { unit_f } from "tslx";
 
 export const iconProps = defineHookProps({

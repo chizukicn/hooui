@@ -1,5 +1,6 @@
-import { computed, inject, provide, ref, watchPostEffect } from "vue";
-import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
+import { computed, inject, provide, ref, watchPostEffect } from "vue-demi";
+import type { InjectionKey, PropType, Ref } from "vue-demi";
+import type { MaybeRefOrGetter } from "@vueuse/core";
 import { toReactive, useElementBounding, useElementVisibility, useEventListener } from "@vueuse/core";
 import type { CSSProperties } from "tslx";
 import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, useElement } from "@hoci/shared";
@@ -23,7 +24,7 @@ export const affixProps = defineHookProps(
      */
     position: {
       type: String as PropType<"top" | "bottom">,
-      default: "top"
+      default: () => "top"
     },
     /**
      * @zh 滚动容器，默认是 `window`

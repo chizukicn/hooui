@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "hoci": "workspace:*",
-    "vue": "^2.7.10"
+    "vue": "^3.3.8"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
-    "@vitejs/plugin-vue2": "^2.2.0",
-    "@vitejs/plugin-vue2-jsx": "^1.1.0",
+    "@vitejs/plugin-vue": "^4.4.1",
+    "@vitejs/plugin-vue-jsx": "^3.0.2",
     "sass": "^1.69.3",
     "typescript": "^5.2.2",
     "unocss": "^0.56.5",

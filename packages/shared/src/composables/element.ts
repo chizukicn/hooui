@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter } from "@vueuse/core";
 import { toRef, useMounted } from "@vueuse/core";
-import type { Ref } from "vue";
-import { computed } from "vue";
+import type { Ref } from "vue-demi";
+import { computed } from "vue-demi";
 
 export function useElement<E extends Element = HTMLElement>(elementSelector: MaybeRefOrGetter<string | Element | undefined | null>, defaultValue?: Ref<E | null | undefined> | MaybeRefOrGetter<E | null | undefined>) {
   const selectorRef = toRef(elementSelector);

@@ -1,7 +1,8 @@
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue-demi";
 import { selectionEmits, selectionProps, useSelectionList } from "@hoci/core";
+import { h } from "@hoci/shared";
 
-export const HiSelection = defineComponent({
+export const HiSelection = /* #__PURE__ */ defineComponent({
   name: "HiSelection",
   props: {
     ...selectionProps,

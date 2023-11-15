@@ -1,5 +1,6 @@
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue-demi";
 import { capitalize } from "tslx";
+import { h } from "@hoci/shared";
 import { itemProps, useSelectionItem } from "../item";
 
 export const HiTabPane = defineComponent({

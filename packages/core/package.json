@@ -23,14 +23,11 @@
     "stub": "unbuild --stub",
     "prepublish": "pnpm build"
   },
-  "peerDependencies": {
-    "@vueuse/core": ">=10",
-    "vue-demi": "^0.14.6"
-  },
   "dependencies": {
     "@hoci/shared": "workspace:*",
-    "@vueuse/core": "^10.5.0",
+    "@vueuse/core": ">=10.5.0",
     "maybe-types": "^0.1.0",
-    "tslx": "^0.1.1"
+    "tslx": "^0.1.1",
+    "vue-demi": ">=0.14.6"
   }
 }

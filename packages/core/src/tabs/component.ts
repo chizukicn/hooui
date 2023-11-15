@@ -1,6 +1,6 @@
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue-demi";
 import { renderSlot } from "tslx";
-import { classPropType } from "@hoci/shared";
+import { classPropType, h } from "@hoci/shared";
 import { selectionEmits, selectionProps, useSelectionList } from "../selection";
 
 export const HiTabs = defineComponent({
