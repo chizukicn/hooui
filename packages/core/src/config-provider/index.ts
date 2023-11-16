@@ -1,26 +1,12 @@
+import type { SharedConfig } from "@hoci/shared";
 import { defineHookProps } from "@hoci/shared";
 import type { PropType } from "vue";
 
 export const configProviderProps = defineHookProps({
-  src: {
-    type: String,
-    required: true
+  icon: {
+    type: Object as PropType<Partial<SharedConfig["icon"]>>
   },
-  size: {
-    type: [Number, String]
-  },
-  width: {
-    type: [Number, String]
-  },
-  height: {
-    type: [Number, String]
-  },
-  color: {
-    type: String,
-    default: "currentColor"
-  },
-  mask: {
-    type: [Boolean, String] as PropType<boolean | "auto">,
-    default: () => "auto"
+  activateEvent: {
+    type: String as PropType<Partial<SharedConfig["activateEvent"]>>
   }
 });
