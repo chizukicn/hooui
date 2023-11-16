@@ -28,6 +28,10 @@
     "stub": "unbuild --stub",
     "prepublish": "pnpm build"
   },
+  "peerDependencies": {
+    "unplugin-vue-components": "^0.25.2",
+    "vue": "^3.0.0"
+  },
   "dependencies": {
     "@hoci/components": "workspace:*",
     "@hoci/core": "workspace:*"

@@ -23,11 +23,10 @@
     "prepublish": "pnpm build"
   },
   "peerDependencies": {
-    "@vueuse/core": ">=10",
-    "vue": "^3.3.4"
+    "vue": "^3.0.0-0"
   },
   "dependencies": {
-    "@vueuse/core": "^10.5.0",
+    "@vueuse/core": ">=10.5.0",
     "defu": "^6.1.2",
     "maybe-types": "^0.1.0",
     "type-fest": "^4.4.0"
