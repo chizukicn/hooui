@@ -20,6 +20,10 @@ const componentSidebar = (): DefaultTheme.SidebarItem[] => {
     {
       text: "Selection (选择器)",
       link: "selection"
+    },
+    {
+      text: "Popover (浮动)",
+      link: "popover"
     }
   ];
 };
