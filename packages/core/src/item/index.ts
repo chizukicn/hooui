@@ -1,7 +1,7 @@
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
 import { defineHookComponent, defineHookProps, valuePropType } from "@hoci/shared";
 import type { PropType } from "vue";
-import { computed, renderSlot, watch } from "vue";
+import { computed, watch } from "vue";
 import { tryOnScopeDispose } from "@vueuse/core";
 import { cls } from "tslx";
 import { useSelectionContext } from "../selection";
@@ -56,12 +56,10 @@ export const useSelectionItem = defineHookComponent({
     });
 
     function render() {
-      return renderSlot(slots, "default", {
+      return slots.default?.({
         active: context.isActive(props.value),
         activate
-      }, () => {
-        return label.value;
-      });
+      }) ?? ((label.value).filter(Boolean)) as ElementLike;
     }
 
     let remove = () => {};

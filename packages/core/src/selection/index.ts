@@ -12,6 +12,7 @@ import {
   defineHookComponent,
   defineHookEmits,
   defineHookProps,
+  getFirstChilld,
   labelPropType,
   useSharedConfig,
   valuePropType
@@ -232,11 +233,12 @@ export const useSelectionList = defineHookComponent({
     }));
 
 
+
     const renderItem = () => {
       const children = options
         .filter((e) => actives.includes(e.value))
         .map((e) => e.render());
-      return props.multiple ? children : children[0];
+      return props.multiple ? children : getFirstChilld(children);
     };
 
     const slotData: HiSelectionSlotData = {
