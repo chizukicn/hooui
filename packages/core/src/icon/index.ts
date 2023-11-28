@@ -69,7 +69,7 @@ export const useIcon = defineHookComponent({
 
     const staticStyle = computed<CSSProperties>(() => {
       return {
-        "--icon-url": `url('${props.src}')`
+        "--icon-url": `url("${(props.src)}")`
       };
     });
 
