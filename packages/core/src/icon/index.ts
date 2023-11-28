@@ -29,6 +29,8 @@ export const iconProps = defineHookProps({
 
 export type HiIconProps = typeof iconProps;
 
+const isSvg = (src: string) => src.endsWith(".svg") || src.startsWith("data:image/svg+xml");
+
 export const useIcon = defineHookComponent({
   props: iconProps,
   setup(props, context) {
@@ -49,7 +51,7 @@ export const useIcon = defineHookComponent({
     });
 
     const dynamicStyle = computed<CSSProperties>(() => {
-      const mask = props.mask === "auto" ? props.src.endsWith(".svg") : props.mask;
+      const mask = props.mask === "auto" ? isSvg(props.src) : props.mask;
       if (!mask) {
         return {
           "background-image": "var(--icon-url)",
