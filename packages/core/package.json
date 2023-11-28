@@ -2,8 +2,13 @@
   "name": "@hoci/core",
   "version": "0.5.2",
   "description": "",
-  "author": "chizuki",
+  "author": "Chizuki <chizukicn@outlook.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chizukicn/hoci",
+    "directory": "packages/core"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@8.9.0",
   "description": "hook ui .",
-  "author": "chizuki",
+  "author": "Chizuki <chizukicn@outlook.com>",
   "license": "MIT",
   "keywords": [
     "vue",

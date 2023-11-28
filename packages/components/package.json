@@ -2,11 +2,11 @@
   "name": "@hoci/components",
   "version": "0.5.2",
   "description": "",
-  "author": "chizuki",
+  "author": "Chizuki <chizukicn@outlook.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chizukicn/hoci.git",
+    "url": "https://github.com/chizukicn/hoci",
     "directory": "packages/components"
   },
   "sideEffects": false,

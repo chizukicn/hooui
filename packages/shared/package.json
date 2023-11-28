@@ -2,8 +2,13 @@
   "name": "@hoci/shared",
   "version": "0.5.2",
   "description": "",
-  "author": "chizuki",
+  "author": "Chizuki <chizukicn@outlook.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chizukicn/hoci",
+    "directory": "packages/shared"
+  },
   "exports": {
     ".": {
       "require": "./dist/index.cjs",
