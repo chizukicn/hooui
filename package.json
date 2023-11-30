@@ -1,6 +1,6 @@
 {
   "name": "@hoci/monorepo",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "private": true,
   "packageManager": "pnpm@8.9.0",
   "description": "hook ui .",
