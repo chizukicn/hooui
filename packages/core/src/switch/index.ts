@@ -14,30 +14,26 @@ import type { ActivateEvent } from "@hoci/shared";
 export const switchProps = defineHookProps({
   modelValue: {
     type: Boolean,
-    default: false
+    default: () => false
   },
   class: {
-    type: classPropType,
-    required: true
+    type: classPropType
   },
   activeClass: {
-    type: classPropType,
-    default: "checked"
+    type: classPropType
   },
   unactiveClass: {
-    type: classPropType,
-    default: "unchecked"
+    type: classPropType
   },
   activateEvent: {
     type: String as PropType<ActivateEvent>
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: () => false
   },
   disabledClass: {
-    type: classPropType,
-    default: ""
+    type: classPropType
   }
 });
 
