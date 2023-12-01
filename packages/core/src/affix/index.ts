@@ -1,8 +1,8 @@
 import { computed, inject, provide, ref, watchPostEffect } from "vue";
 import type { InjectionKey, MaybeRefOrGetter, PropType, Ref } from "vue";
-import { toReactive, useElementBounding, useElementVisibility, useEventListener } from "@vueuse/core";
+import { useElementBounding, useElementVisibility, useEventListener } from "@vueuse/core";
 import type { CSSProperties } from "tslx";
-import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, useElement } from "@hoci/shared";
+import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, toReactive, useElement } from "@hoci/shared";
 import { px } from "tslx";
 export const affixProps = defineHookProps(
   {

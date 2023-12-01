@@ -1,4 +1,4 @@
-import { isDefined, syncRef, toReactive } from "@vueuse/core";
+import { isDefined, syncRef } from "@vueuse/core";
 import type { InjectionKey, PropType } from "vue";
 import {
   computed,
@@ -14,6 +14,7 @@ import {
   defineHookProps,
   getFirstChilld,
   labelPropType,
+  toReactive,
   useSharedConfig,
   valuePropType
 } from "@hoci/shared";
