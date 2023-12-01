@@ -18,14 +18,14 @@
       "types": "./dist/resolver.d.ts",
       "require": "./dist/resolver.cjs",
       "import": "./dist/resolver.mjs"
-    },
-    "./*": "./dist/*"
+    }
   },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "*.d.ts"
   ],
   "scripts": {
     "build": "unbuild",
