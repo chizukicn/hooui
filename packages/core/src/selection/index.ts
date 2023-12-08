@@ -33,6 +33,12 @@ export interface Option {
 
 
 export interface HiSelectionContext {
+  activate: (_: any) => void
+  reject: (_: any) => void
+  /**
+   * @deprecated
+   * use activate instead
+   */
   changeActive: (_: any) => void
   isActive: (_: any) => boolean
   init?: InitFunction
@@ -106,7 +112,8 @@ export const selectionEmits = defineHookEmits([
   "update:modelValue",
   "change",
   "load",
-  "unload"
+  "unload",
+  "reject"
 ]);
 
 const HiSelectionContextSymbol: InjectionKey<HiSelectionContext> = Symbol("[hi-selection]context");
@@ -116,7 +123,9 @@ export function useSelectionContext() {
   const sharedConfig = useSharedConfig();
   return inject(HiSelectionContextSymbol, {
     isActive: () => false,
+    activate: () => {},
     changeActive: () => {},
+    reject: () => {},
     activeClass: "active",
     unactiveClass: "unactive",
     disabledClass: "disabled",
@@ -174,7 +183,7 @@ export const useSelectionList = defineHookComponent({
       return actives.includes(value);
     }
 
-    function changeActive(value: any) {
+    function activate(value: any) {
       if (isActive(value)) {
         if (props.multiple || props.clearable) {
           actives.splice(actives.indexOf(value), 1);
@@ -194,6 +203,12 @@ export const useSelectionList = defineHookComponent({
         }
       }
     }
+
+
+    function reject(value: any) {
+      emit("reject", value);
+    }
+
 
     const init = (option: Option) => {
       function remove() {
@@ -228,8 +243,10 @@ export const useSelectionList = defineHookComponent({
       defaultValue: computed(() => props.defaultValue),
       activateEvent: computed(() => props.activateEvent ?? sharedConfig.activateEvent),
       active: currentValue,
-      changeActive,
+      activate,
+      changeActive: activate,
       isActive,
+      reject,
       init
     }));
 
@@ -244,7 +261,7 @@ export const useSelectionList = defineHookComponent({
 
     const slotData: HiSelectionSlotData = {
       isActive,
-      changeActive,
+      changeActive: activate,
       renderItem
     };
 
@@ -256,7 +273,7 @@ export const useSelectionList = defineHookComponent({
       options,
       actives,
       isActive,
-      changeActive,
+      changeActive: activate,
       renderItem,
       render
     };

@@ -1,5 +1,5 @@
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
-import { defineHookComponent, defineHookProps, valuePropType } from "@hoci/shared";
+import { defineHookComponent, defineHookEmits, defineHookProps, valuePropType } from "@hoci/shared";
 import type { PropType } from "vue";
 import { computed, watch } from "vue";
 import { tryOnScopeDispose } from "@vueuse/core";
@@ -34,17 +34,22 @@ export const itemProps = defineHookProps({
   }
 });
 
+export const itemEmits = defineHookEmits(["reject"]);
+
 
 export const useSelectionItem = defineHookComponent({
   props: itemProps,
-  setup(props, { slots }) {
+  emits: itemEmits,
+  setup(props, { slots, emit }) {
     const context = useSelectionContext();
 
     const activate = () => {
       if (props.disabled) {
+        emit("reject", props.value);
+        context.reject(props.value);
         return;
       }
-      context.changeActive(props.value);
+      context.activate(props.value);
     };
 
     const label = computed(() => {

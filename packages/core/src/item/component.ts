@@ -1,5 +1,5 @@
 import { defineComponent, h } from "vue";
-import { itemProps, useSelectionItem } from "@hoci/core";
+import { itemEmits, itemProps, useSelectionItem } from "@hoci/core";
 import { capitalize } from "tslx";
 
 export const HiItem = defineComponent({
@@ -11,6 +11,7 @@ export const HiItem = defineComponent({
       default: "div"
     }
   },
+  emits: itemEmits,
   setup(props, context) {
     const { render, activate, className, isDisabled, activateEvent } = useSelectionItem(
       props,

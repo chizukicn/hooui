@@ -39,7 +39,7 @@ export const switchProps = defineHookProps({
 
 export type HiSwitchProps = typeof switchProps;
 
-export const switchEmits = defineHookEmits(["update:modelValue", "change"]);
+export const switchEmits = defineHookEmits(["update:modelValue", "change", "reject"]);
 
 export const useSwitch = defineHookComponent({
   props: switchProps,
@@ -52,6 +52,7 @@ export const useSwitch = defineHookComponent({
 
     const toggle = function (value?: any) {
       if (props.disabled) {
+        context.emit("reject", value);
         return;
       }
       const oldValue = modelValue.value;
