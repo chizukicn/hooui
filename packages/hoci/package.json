@@ -1,6 +1,6 @@
 {
   "name": "hoci",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "a headless component library for vue3",
   "author": "Chizuki <chizukicn@outlook.com>",
   "license": "MIT",
