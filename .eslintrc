@@ -1,6 +1,7 @@
 {
-    "extends": ["@curev"],
-    "rules": {
-      "unicorn/prefer-spread":"off"
-    }
+  "extends": ["@curev"],
+  "rules": {
+    "unicorn/prefer-spread": "off",
+    "import/export": "off"
+  }
 }
