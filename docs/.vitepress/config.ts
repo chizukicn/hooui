@@ -2,16 +2,16 @@ import { defineConfig } from "vitepress";
 import type { DefaultTheme } from "vitepress/types/default-theme";
 import { applyPlugins } from "./plugins/code";
 
-const guideSidebar = (): DefaultTheme.SidebarItem[] => {
+function guideSidebar(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: "快速开始",
       link: "quickstart"
     }
   ];
-};
+}
 
-const componentSidebar = (): DefaultTheme.SidebarItem[] => {
+function componentSidebar(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: "Affix (固钉)",
@@ -26,7 +26,7 @@ const componentSidebar = (): DefaultTheme.SidebarItem[] => {
       link: "popover"
     }
   ];
-};
+}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({

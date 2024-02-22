@@ -73,7 +73,6 @@ export const useIcon = defineHookComponent({
       };
     });
 
-
     const style = computed<CSSProperties>(() => {
       return {
         ...staticStyle.value,

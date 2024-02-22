@@ -12,8 +12,6 @@ import { reactiveComputed } from "@vueuse/core";
 import { isConstructor, isFunction } from "./utils";
 import type { HookComponent, HookComponentOptions } from "./types";
 
-
-
 export function defineHookProps<
   P extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
 >(props: P) {
@@ -48,7 +46,6 @@ export function defineHookComponent<
     return options.setup(p, context);
   };
 }
-
 
 function withDefaults<
   P = ComponentPropsOptions,
@@ -97,4 +94,3 @@ export function isExtends(types: PropType<any>, value: PropType<any>): boolean {
   }
   return value === types;
 }
-

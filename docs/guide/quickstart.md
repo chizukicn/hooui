@@ -16,7 +16,6 @@ pnpm add hoci
 
 ## 完整引入
 
-
 ```ts
 import { createApp } from "vue";
 import hoci from "hoci";
@@ -25,7 +24,6 @@ const app = createApp();
 app.use(hoci);
 app.mount("#app");
 ```
-
 
 ## 按需引入
 
@@ -53,4 +51,3 @@ export default defineConfig({
   ],
 });
 ```
-

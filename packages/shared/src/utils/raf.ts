@@ -1,6 +1,6 @@
 export interface ThrottledCancelableFn<Args extends any[]> {
-  (...args: Args): void
-  cancel: () => void
+  (...args: Args): void;
+  cancel: () => void;
 }
 
 export function throttleByRaf<T extends any[]>(fn: (...args: T) => void) {
@@ -24,4 +24,3 @@ export function throttleByRaf<T extends any[]>(fn: (...args: T) => void) {
 
   return throttled;
 }
-

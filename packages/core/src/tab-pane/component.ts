@@ -10,13 +10,11 @@ export const HiTabPane = defineComponent({
   setup(props, context) {
     const { className, activateEvent, activate, isDisabled, label } = useSelectionItem(props, context);
     return () => {
-      return h("div",
-        {
-          class: className.value,
-          [`on${capitalize(activateEvent.value)}`]: activate,
-          disabled: isDisabled.value
-        }
-        , label.value);
+      return h("div", {
+        class: className.value,
+        [`on${capitalize(activateEvent.value)}`]: activate,
+        disabled: isDisabled.value
+      }, label.value);
     };
   }
 });

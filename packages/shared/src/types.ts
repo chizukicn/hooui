@@ -7,6 +7,7 @@ import type {
   SetupContext,
   VNode
 } from "vue";
+
 export interface HookComponentOptions<
   R,
   E = EmitsOptions,
@@ -14,9 +15,9 @@ export interface HookComponentOptions<
   P = ComponentPropsOptions,
   D = ExtractPropTypes<P>
 > {
-  props?: P
-  emits?: E | EE[]
-  setup: (props: D, context: SetupContext<E>) => R
+  props?: P;
+  emits?: E | EE[];
+  setup: (props: D, context: SetupContext<E>) => R;
 }
 
 export type HookComponent<
@@ -32,12 +33,11 @@ export type HookComponent<
 
 export type Constructor<T> =
   | {
-    new (...args: any[]): T & {}
+    new (...args: any[]): T & object;
   }
   | {
-    (): T
+    (): T;
   };
-
 
 export type ClassType = string | string[] | Record<string, any>;
 

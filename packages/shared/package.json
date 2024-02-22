@@ -11,8 +11,8 @@
   },
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./*": "./dist/*"
   },
@@ -32,8 +32,8 @@
     "vue": "^3.0.0-0"
   },
   "dependencies": {
-    "defu": "^6.1.2",
+    "defu": "^6.1.4",
     "maybe-types": "^0.2.0",
-    "type-fest": "^4.4.0"
+    "type-fest": "^4.10.2"
   }
 }

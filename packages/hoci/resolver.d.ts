@@ -1,2 +1,2 @@
-export * from './dist/resolver'
-export { default } from './dist/resolver'
+export * from "./dist/resolver";
+export { default } from "./dist/resolver";

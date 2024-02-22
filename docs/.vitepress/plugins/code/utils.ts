@@ -81,7 +81,7 @@ function injectImportStatement(
   const tags = env.sfcBlocks.scripts as { content: string }[];
 
   const isUsingTS
-    = tags.findIndex(tag => scriptLangTsRE.test(tag.content)) > -1;
+    = tags.findIndex((tag) => scriptLangTsRE.test(tag.content)) > -1;
   const existingSetupScriptIndex = tags?.findIndex((tag) => {
     return (
       scriptRE.test(tag.content)

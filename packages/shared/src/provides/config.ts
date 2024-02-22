@@ -8,10 +8,10 @@ const SHARED_CONFIG_KEY: InjectionKey<PartialDeep<SharedConfig>> = Symbol("Share
 
 export interface SharedConfig {
   icon: {
-    size: number | undefined
-    sizeUnit: string | undefined
-  }
-  activateEvent: ActivateEvent
+    size: number | undefined;
+    sizeUnit: string | undefined;
+  };
+  activateEvent: ActivateEvent;
 }
 
 export const DEFAULT_SHARED_CONFIG: SharedConfig = {
@@ -28,7 +28,6 @@ export function provideSharedConfig(config: PartialDeep<SharedConfig>) {
 
 export function useSharedConfig<S extends keyof SharedConfig>(scope: S): SharedConfig[S];
 export function useSharedConfig(): SharedConfig;
-
 
 export function useSharedConfig<S extends (keyof SharedConfig) | undefined = undefined>(scope?: S) {
   const injectConfig = inject(SHARED_CONFIG_KEY, {}) as SharedConfig;

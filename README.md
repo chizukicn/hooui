@@ -32,20 +32,21 @@ import { HiItem, HiSelection } from "hoci";
 
 export default defineComponent(() => {
   const modelValue = ref("abc");
-  return () => (<div>
-    <HiSelection
-      class="flex flex-col"
-      activeClass="bg-blue-500"
-      unactiveClass="bg-gray-500"
-      itemClass="p-2 mx-2"
-      v-model={modelValue.value}
-    >
-      <HiItem value="abc"></HiItem>
-      <HiItem value="def"></HiItem>
-    </HiSelection>
-  </div>);
+  return () => (
+    <div>
+      <HiSelection
+        class="flex flex-col"
+        activeClass="bg-blue-500"
+        unactiveClass="bg-gray-500"
+        itemClass="p-2 mx-2"
+        v-model={modelValue.value}
+      >
+        <HiItem value="abc"></HiItem>
+        <HiItem value="def"></HiItem>
+      </HiSelection>
+    </div>
+  );
 });
-
 ```
 
 ## Development

@@ -11,21 +11,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./resolver": {
       "types": "./dist/resolver.d.ts",
-      "require": "./dist/resolver.cjs",
-      "import": "./dist/resolver.mjs"
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
     }
   },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/",
-    "*.d.ts"
+    "*.d.ts",
+    "dist/"
   ],
   "scripts": {
     "build": "unbuild",
@@ -41,6 +41,6 @@
     "@hoci/core": "workspace:*"
   },
   "optionalDependencies": {
-    "unplugin-vue-components": "^0.25.2"
+    "unplugin-vue-components": "^0.26.0"
   }
 }

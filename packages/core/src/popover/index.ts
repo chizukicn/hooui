@@ -4,13 +4,12 @@ import { px } from "tslx";
 import { type PropType, computed, nextTick, reactive, ref, watch } from "vue";
 
 export type Placement =
- "bottom" | "top" | "left" | "right" | "auto" |
- "top-left" | "top-right" | "bottom-left" | "bottom-right" |
- "left-top" | "left-bottom" | "right-top" | "right-bottom"
+  "bottom" | "top" | "left" | "right" | "auto" |
+  "top-left" | "top-right" | "bottom-left" | "bottom-right" |
+  "left-top" | "left-bottom" | "right-top" | "right-bottom"
 ;
 
 export type TriggerEvent = "click" | "mousedown" | "dblclick" | "hover" | "contextmenu" | "focus" | "touch";
-
 
 export const popoverProps = defineHookProps({
   popupClass: {
@@ -59,12 +58,10 @@ export const usePopover = defineHookComponent({
     const triggerRef = ref<HTMLElement>();
     const popupRef = ref<HTMLElement>();
 
-
     const validate = (event: TriggerEvent | TriggerEvent[]) => {
       const events = Array.isArray(event) ? event : [event];
       return !props.disabled && events.includes(props.triggerEvent);
     };
-
 
     let timer: NodeJS.Timeout;
 
@@ -111,7 +108,6 @@ export const usePopover = defineHookComponent({
     }, {
       ignore: [popupRef]
     });
-
 
     const onContextmenu = (e: MouseEvent) => {
       if (!validate("contextmenu")) {

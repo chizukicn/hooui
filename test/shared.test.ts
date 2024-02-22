@@ -1,6 +1,6 @@
-import {expect, test} from "vitest";
-import {isFunction} from "@hoci/shared"
+import { expect, it } from "vitest";
+import { isFunction } from "@hoci/shared";
 
-test("is-function",()=>{
-  expect(isFunction(()=>{})).toBe(true)
-})
+it("is-function", () => {
+  expect(isFunction(() => {})).toBe(true);
+});

@@ -21,34 +21,32 @@ import {
 import type { ActivateEvent, ElementLike } from "@hoci/shared";
 import { cls } from "tslx";
 
-
 export type InitFunction = (option: Option) => () => void;
 
 export interface Option {
-  id?: string
-  label?: string
-  value: any | null
-  render(): ElementLike
+  id?: string;
+  label?: string;
+  value: any | null;
+  render(): ElementLike;
 }
 
-
 export interface HiSelectionContext {
-  activate: (_: any) => void
-  reject: (_: any) => void
+  activate: (_: any) => void;
+  reject: (_: any) => void;
   /**
    * @deprecated
    * use activate instead
    */
-  changeActive: (_: any) => void
-  isActive: (_: any) => boolean
-  init?: InitFunction
-  activateEvent: ActivateEvent
-  activeClass: string
-  itemClass: string
-  unactiveClass: string
-  disabledClass: string
-  label: string | ((_: any) => ElementLike | null | undefined) | null | undefined
-  multiple: boolean | number
+  changeActive: (_: any) => void;
+  isActive: (_: any) => boolean;
+  init?: InitFunction;
+  activateEvent: ActivateEvent;
+  activeClass: string;
+  itemClass: string;
+  unactiveClass: string;
+  disabledClass: string;
+  label: string | ((_: any) => ElementLike | null | undefined) | null | undefined;
+  multiple: boolean | number;
 }
 
 export const selectionProps = defineHookProps({
@@ -105,7 +103,6 @@ export const selectionProps = defineHookProps({
   }
 });
 
-
 export type SelectionProps = typeof selectionProps;
 
 export const selectionEmits = defineHookEmits([
@@ -117,7 +114,6 @@ export const selectionEmits = defineHookEmits([
 ]);
 
 const HiSelectionContextSymbol: InjectionKey<HiSelectionContext> = Symbol("[hi-selection]context");
-
 
 export function useSelectionContext() {
   const sharedConfig = useSharedConfig();
@@ -176,7 +172,6 @@ export const useSelectionList = defineHookComponent({
 
     syncRef(currentValue, modelValue, { immediate: true, deep: true });
 
-
     const emitChange = () => emit("change", currentValue.value);
 
     function isActive(value: any) {
@@ -204,11 +199,9 @@ export const useSelectionList = defineHookComponent({
       }
     }
 
-
     function reject(value: any) {
       emit("reject", value);
     }
-
 
     const init = (option: Option) => {
       function remove() {
@@ -229,7 +222,6 @@ export const useSelectionList = defineHookComponent({
       return remove;
     };
 
-
     const sharedConfig = useSharedConfig();
 
     provide(HiSelectionContextSymbol, toReactive({
@@ -249,8 +241,6 @@ export const useSelectionList = defineHookComponent({
       reject,
       init
     }));
-
-
 
     const renderItem = () => {
       const children = options
@@ -280,10 +270,8 @@ export const useSelectionList = defineHookComponent({
   }
 });
 
-
-
 export interface HiSelectionSlotData extends Record<string, unknown> {
-  isActive: (value: any) => boolean
-  changeActive: (value: any) => void
-  renderItem: () => ElementLike
+  isActive: (value: any) => boolean;
+  changeActive: (value: any) => void;
+  renderItem: () => ElementLike;
 }

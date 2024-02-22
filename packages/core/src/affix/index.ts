@@ -4,6 +4,7 @@ import { useElementBounding, useElementVisibility, useEventListener } from "@vue
 import type { CSSProperties } from "tslx";
 import { defineHookComponent, defineHookEmits, defineHookProps, isWindow, throttleByRaf, toReactive, useElement } from "@hoci/shared";
 import { px } from "tslx";
+
 export const affixProps = defineHookProps(
   {
     fixedClass: {
@@ -35,9 +36,9 @@ export const affixProps = defineHookProps(
       >
     },
     /**
-   * @zh z-index 值
-   * @en Z index value
-   */
+     * @zh z-index 值
+     * @en Z index value
+     */
     zIndex: {
       type: Number,
       default: 998
@@ -126,7 +127,6 @@ export const useAffix = defineHookComponent({
           : {};
       }
 
-
       // update isFixed
       if (newIsFixed !== isFixed.value) {
         isFixed.value = newIsFixed;
@@ -140,8 +140,6 @@ export const useAffix = defineHookComponent({
         ...(newIsFixed ? newPlaceholderStyles : {})
       };
     });
-
-
 
     useEventListener(containerRef, "scroll", () => {
       emit("scroll");
@@ -164,7 +162,6 @@ export const useAffix = defineHookComponent({
     };
   }
 });
-
 
 export function provideAffixTarget(target: MaybeRefOrGetter<Element | null | undefined>) {
   provide(AFFIX_TARGET_KEY, target);

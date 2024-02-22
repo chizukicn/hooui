@@ -4,6 +4,7 @@ import { presetIcons, presetUno } from "unocss";
 import Components from "unplugin-vue-components/vite";
 import { HociResolver } from "hoci/resolver";
 import { alias } from "../alias";
+
 export default defineConfig({
   optimizeDeps: {
     exclude: [

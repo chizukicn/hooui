@@ -86,4 +86,3 @@ export const useSwitch = defineHookComponent({
     };
   }
 });
-

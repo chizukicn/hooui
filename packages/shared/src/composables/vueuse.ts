@@ -4,7 +4,6 @@ import type { ComputedRef, MaybeRefOrGetter, Ref, ToRef, UnwrapNestedRefs } from
 
 export const toReactive = _toReactive as <T>(value: T) => UnwrapNestedRefs<T>;
 
-
 export function toRef<T>(r: () => T): Readonly<Ref<T>>;
 export function toRef<T>(r: ComputedRef<T>): ComputedRef<T>;
 export function toRef<T>(r: MaybeRefOrGetter<T>): Ref<T>;

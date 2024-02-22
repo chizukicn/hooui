@@ -3,5 +3,3 @@
 
 ## Placement
 <demo src="../examples/popover/placement.vue"/>
-
-

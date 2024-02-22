@@ -1,5 +1,6 @@
 import { defineComponent, h, renderSlot } from "vue";
 import { affixProps, useAffix } from "@hoci/core";
+
 export const HiAffix = defineComponent({
   name: "HiAffix",
   props: {
@@ -12,11 +13,9 @@ export const HiAffix = defineComponent({
   setup(props, context) {
     const { className, wrapperRef, isFixed, placeholderStyle, fixedStyle } = useAffix(props, context);
 
-    return () => h(props.as, { ref: wrapperRef },
-      [
-        isFixed.value && h("div", { style: placeholderStyle.value }),
-        h("div", { class: className.value, style: fixedStyle.value }, renderSlot(context.slots, "default"))
-      ]
-    );
+    return () => h(props.as, { ref: wrapperRef }, [
+      isFixed.value && h("div", { style: placeholderStyle.value }),
+      h("div", { class: className.value, style: fixedStyle.value }, renderSlot(context.slots, "default"))
+    ]);
   }
 });

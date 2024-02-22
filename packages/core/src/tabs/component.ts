@@ -36,7 +36,7 @@ export const HiTabs = defineComponent({
       let component = selection.renderItem();
       if (props.keepAlive) {
         component = h(KeepAlive, {
-          ...(typeof props.keepAlive == "object" ? props.keepAlive : {})
+          ...(typeof props.keepAlive === "object" ? props.keepAlive : {})
         }, component);
       }
 

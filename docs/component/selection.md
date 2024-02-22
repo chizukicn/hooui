@@ -25,12 +25,9 @@
 | update:model-value | 绑定值变化时触发 |
 | change | 选中的元素发生变化时触发 |
 
-
 ## Item Props (参数)
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | value | `any` | `undefined` | 元素对应的值 |
 | active-event | `ActiveEvent` | `click` | 触发选中的事件 |
 | disabled | `boolean` | `false` | 是否禁用 |
-
-

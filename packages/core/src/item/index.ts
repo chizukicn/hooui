@@ -33,7 +33,6 @@ export const itemProps = defineHookProps({
 
 export const itemEmits = defineHookEmits(["reject"]);
 
-
 export const useSelectionItem = defineHookComponent({
   props: itemProps,
   emits: itemEmits,
@@ -51,7 +50,7 @@ export const useSelectionItem = defineHookComponent({
 
     const label = computed(() => {
       let label = props.label ?? context.label;
-      if (label && typeof label == "function") {
+      if (label && typeof label === "function") {
         label = label(props.value)!;
       }
       return Array.isArray(label) ? label : [label];
@@ -74,7 +73,7 @@ export const useSelectionItem = defineHookComponent({
           remove();
           remove = init({
             id: Math.random().toString(16).slice(2),
-            label: typeof props.label == "string" ? props.label : undefined,
+            label: typeof props.label === "string" ? props.label : undefined,
             value,
             render
           });
@@ -88,7 +87,6 @@ export const useSelectionItem = defineHookComponent({
     const isActive = computed(() => context.isActive(props.value));
 
     const isDisabled = computed(() => props.disabled);
-
 
     const className = computed(() => {
       const array = [context.itemClass];
@@ -115,6 +113,6 @@ export const useSelectionItem = defineHookComponent({
 });
 
 export interface HiItemSlotsData {
-  active: boolean
-  activate(): void
+  active: boolean;
+  activate(): void;
 }
