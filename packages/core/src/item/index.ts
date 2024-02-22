@@ -22,9 +22,6 @@ export const itemProps = defineHookProps({
     type: Boolean,
     default: () => true
   },
-  key: {
-    type: [String, Number, Symbol] as PropType<string | number | symbol>
-  },
   activateEvent: {
     type: String as PropType<ActivateEvent>
   },
