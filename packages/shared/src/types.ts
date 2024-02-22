@@ -4,7 +4,8 @@ import type {
   EmitsOptions,
   ExtractDefaultPropTypes,
   ExtractPropTypes,
-  SetupContext
+  SetupContext,
+  VNode
 } from "vue";
 export interface HookComponentOptions<
   R,
@@ -50,4 +51,4 @@ export type ActivateEvent =
   | "touchstart"
   | "touchend";
 
-export type ElementLike = JSX.Element | string | ElementLike[];
+export type ElementLike = VNode | string | ElementLike[];
