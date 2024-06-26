@@ -11,10 +11,10 @@
     "hoci": "workspace:*"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.30",
+    "@iconify-json/carbon": "^1.1.36",
     "scss": "^0.2.4",
-    "unocss": "^0.58.5",
-    "unplugin-vue-components": "^0.26.0",
-    "vitepress": "^1.0.0-rc.44"
+    "unocss": "^0.61.0",
+    "unplugin-vue-components": "^0.27.1",
+    "vitepress": "^1.2.3"
   }
 }

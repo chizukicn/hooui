@@ -41,6 +41,6 @@
     "@hoci/core": "workspace:*"
   },
   "optionalDependencies": {
-    "unplugin-vue-components": "^0.26.0"
+    "unplugin-vue-components": "^0.27.1"
   }
 }
