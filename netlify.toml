@@ -4,7 +4,7 @@ command = "pnpm install && pnpm -w run deploy"
 
 [build.environment]
 NETLIFY_USE_PNPM = "true"
-NODE_VERSION = "16"
+NODE_VERSION = "18"
 
 [functions]
 node_bundler = "esbuild"

@@ -4,7 +4,7 @@ import { provideAffixTarget } from "../affix";
 export const HiAffixTarget = defineComponent({
   name: "HiAffixTarget",
   setup(_, context) {
-    const targetRef = ref<HTMLElement | null>(null);
+    const targetRef = ref<HTMLElement>();
     provideAffixTarget(targetRef);
     return () => h("div", {
       ref: targetRef,

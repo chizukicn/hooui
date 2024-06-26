@@ -12,16 +12,16 @@
   },
   "dependencies": {
     "hoci": "workspace:*",
-    "vue": "^3.4.19"
+    "vue": "^3.4.30"
   },
   "devDependencies": {
-    "@types/node": "^20.11.19",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "@vitejs/plugin-vue-jsx": "^3.1.0",
-    "sass": "^1.71.1",
-    "typescript": "^5.3.3",
-    "unocss": "^0.58.5",
-    "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.1.4"
+    "@types/node": "^20.14.9",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "sass": "^1.77.6",
+    "typescript": "^5.5.2",
+    "unocss": "^0.61.0",
+    "unplugin-vue-components": "^0.27.1",
+    "vite": "^5.3.1"
   }
 }
