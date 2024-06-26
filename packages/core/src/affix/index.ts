@@ -32,7 +32,7 @@ export const affixProps = defineHookProps(
      */
     target: {
       type: [String, Object, Function] as PropType<
-      string | HTMLElement
+        string | Element | (() => Element | null | undefined)
       >
     },
     /**
@@ -64,7 +64,7 @@ function getTargetRect(target: Element | Window) {
 export const useAffix = defineHookComponent({
   props: affixProps,
   setup(props, { emit }) {
-    const wrapperRef = ref<HTMLElement | null>(null);
+    const wrapperRef = ref<HTMLElement>();
 
     const wrapperRect = toReactive(useElementBounding(wrapperRef));
 
