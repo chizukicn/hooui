@@ -42,7 +42,7 @@
     "@curev/eslint-config": "^0.3.7",
     "@types/node": "^20.14.9",
     "bumpp": "^9.4.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "lint-staged": "^15.2.7",
     "nolyfill": "^1.0.31",
     "prettier": "^3.3.2",
