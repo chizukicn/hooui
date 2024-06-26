@@ -46,7 +46,8 @@ export interface HiSelectionContext {
   unactiveClass: string;
   disabledClass: string;
   label: string | ((_: any) => ElementLike | null | undefined) | null | undefined;
-  multiple: boolean | number;
+  multiple: boolean;
+  limit: [number, number];
 }
 
 export const selectionProps = defineHookProps({
@@ -85,7 +86,7 @@ export const selectionProps = defineHookProps({
    *  多选模式
    */
   multiple: {
-    type: [Boolean, Number],
+    type: [Boolean, Number, Array] as PropType<boolean | number | [number, number?]>,
     default: () => false
   },
   /**
@@ -128,7 +129,8 @@ export function useSelectionContext() {
     itemClass: "",
     activateEvent: sharedConfig.activateEvent,
     label: null,
-    multiple: false
+    multiple: false,
+    limit: [0, Number.POSITIVE_INFINITY]
   });
 }
 
@@ -178,17 +180,31 @@ export const useSelectionList = defineHookComponent({
       return actives.includes(value);
     }
 
+    const multipleActive = computed(() => !!props.multiple);
+
+    /**
+     * [min,max]
+     */
+    const multipleLimit = computed<[number, number]>(() => {
+      if (Array.isArray(props.multiple)) {
+        if (props.multiple[1] === undefined) {
+          return [props.multiple[0], Number.POSITIVE_INFINITY];
+        }
+        return props.multiple as [number, number];
+      }
+      return [0, Number.POSITIVE_INFINITY];
+    });
+
     function activate(value: any) {
+      const [min, max] = multipleLimit.value;
       if (isActive(value)) {
-        if (props.multiple || props.clearable) {
+        if ((multipleActive.value && actives.length > min) || props.clearable) {
           actives.splice(actives.indexOf(value), 1);
           emitChange();
         }
       } else {
         if (props.multiple) {
-          const limit
-            = typeof props.multiple === "number" ? props.multiple : Number.POSITIVE_INFINITY;
-          if (actives.length < limit) {
+          if (actives.length < max) {
             actives.push(value);
             emitChange();
           }
@@ -230,7 +246,8 @@ export const useSelectionList = defineHookComponent({
       disabledClass: computed(() => cls(props.disabledClass)),
       itemClass: computed(() => cls(props.itemClass)),
       label: computed(() => props.label),
-      multiple: computed(() => props.multiple),
+      multiple: multipleActive,
+      limit: multipleLimit,
       clearable: computed(() => props.clearable),
       defaultValue: computed(() => props.defaultValue),
       activateEvent: computed(() => props.activateEvent ?? sharedConfig.activateEvent),
